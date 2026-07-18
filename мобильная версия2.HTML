@@ -1,0 +1,580 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru">
+<head>
+    <title>Портал знаний — Нефтепереработка</title>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style type="text/css">
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #f4f6f8;
+            color: #1a1a2e;
+            font-family: 'Segoe UI', 'Roboto', Arial, Helvetica, sans-serif;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 16px; }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 20px 16px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            border-bottom: 4px solid #e94560;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border-radius: 0 0 12px 12px;
+            margin-bottom: 6px;
+        }
+
+        /* Search */
+        .search-wrap {
+            padding: 18px 0 10px;
+            text-align: center;
+        }
+        #search-input {
+            width: 100%;
+            max-width: 600px;
+            padding: 14px 20px;
+            font-size: 18px;
+            border: 2px solid #c0c0c0;
+            border-radius: 12px;
+            outline: none;
+            background: #fff;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        #search-input:focus {
+            border-color: #1a1a2e;
+            box-shadow: 0 0 0 3px rgba(26,26,46,0.15);
+        }
+        .search-hint {
+            font-size: 15px;
+            color: #555;
+            margin-top: 6px;
+        }
+
+        /* Chapters (аккордеон) */
+        .chapter {
+            margin: 18px 0;
+            border: 2px solid #1a1a2e;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .chapter-title {
+            font-size: 22px;
+            font-weight: 700;
+            padding: 16px 20px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #f0f0f0;
+            cursor: pointer;
+            user-select: none;
+            letter-spacing: 0.5px;
+            transition: background 0.2s;
+            position: relative;
+        }
+        .chapter-title::after {
+            content: "▼";
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            opacity: 0.7;
+            transition: transform 0.3s;
+        }
+        .chapter-title.open::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+        .chapter-title:hover {
+            background: linear-gradient(135deg, #243b55 0%, #1a2a3a 100%);
+        }
+        .chapter-body {
+            display: none;
+        }
+        .chapter-body.open {
+            display: block;
+        }
+
+        /* Sections */
+        .section {
+            margin: 12px 12px;
+            border: 2px solid #3a4a6b;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #fafbfc;
+        }
+        .section-title {
+            font-size: 19px;
+            font-weight: 700;
+            padding: 12px 18px;
+            background: #e8ecf1;
+            color: #1a1a2e;
+            cursor: pointer;
+            user-select: none;
+            border-bottom: 1px solid #d0d5dd;
+            transition: background 0.2s;
+            position: relative;
+        }
+        .section-title::after {
+            content: "▼";
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            opacity: 0.6;
+            transition: transform 0.3s;
+        }
+        .section-title.open::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+        .section-title:hover { background: #dce1e8; }
+        .section-body { display: none; }
+        .section-body.open { display: block; }
+
+        /* Subsections */
+        .subsection {
+            margin: 8px 8px;
+            border: 1px solid #b0b8c4;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #ffffff;
+        }
+        .subsection-title {
+            font-size: 17px;
+            font-weight: 700;
+            padding: 10px 16px;
+            background: #f0f2f5;
+            color: #16213e;
+            cursor: pointer;
+            user-select: none;
+            border-bottom: 1px solid #d0d5dd;
+            transition: background 0.2s;
+            position: relative;
+        }
+        .subsection-title::after {
+            content: "▼";
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 11px;
+            opacity: 0.5;
+            transition: transform 0.3s;
+        }
+        .subsection-title.open::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+        .subsection-title:hover { background: #e4e8ed; }
+        .subsection-body { display: none; }
+        .subsection-body.open { display: block; }
+
+        /* QA */
+        .qa-item {
+            border-bottom: 1px solid #e0e4e8;
+        }
+        .qa-item:last-child { border-bottom: none; }
+        .question {
+            padding: 14px 18px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            background: #f8f9fa;
+            user-select: none;
+            color: #1a1a2e;
+            transition: background 0.15s;
+            position: relative;
+        }
+        .question::after {
+            content: "▼";
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 11px;
+            opacity: 0.5;
+            transition: transform 0.3s;
+        }
+        .question.open::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+        .question:hover { background: #eef1f5; }
+        .question.active {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+        }
+        .answer {
+            padding: 14px 22px;
+            font-size: 16px;
+            display: none;
+            background: #ffffff;
+            border-top: 1px solid #e0e4e8;
+            white-space: pre-wrap;
+            font-family: 'Segoe UI', 'Roboto', Arial, Helvetica, sans-serif;
+            line-height: 1.7;
+            color: #2c3e50;
+        }
+
+        /* Empty chapter */
+        .empty-chapter-note {
+            padding: 20px;
+            text-align: center;
+            font-size: 17px;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 24px 10px 30px;
+            border-top: 1px solid #d0d5dd;
+            margin-top: 14px;
+        }
+        .to-top {
+            display: inline-block;
+            padding: 12px 36px;
+            background: #e8ecf1;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #1a1a2e;
+            font-weight: 700;
+            font-size: 17px;
+            transition: background 0.2s;
+        }
+        .to-top:hover { background: #d0d5dd; }
+
+        <span style="color: hsl(var(--primary)); font-weight: 500;">@media</span> (max-width: 600px) {
+            body { font-size: 16px; }
+            .header { font-size: 20px; padding: 14px 12px; }
+            .chapter-title { font-size: 18px; padding: 12px 14px; }
+            .section-title { font-size: 16px; }
+            .subsection-title { font-size: 15px; }
+            .question { font-size: 15px; padding: 12px 14px; }
+            .answer { font-size: 14px; padding: 12px 16px; }
+            #search-input { font-size: 16px; padding: 12px 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">📘 Портал знаний — Нефтепереработка</div>
+
+    <!-- SEARCH -->
+    <div class="search-wrap">
+        <input type="text" id="search-input" placeholder="🔍 Поиск по вопросам и ответам..."/>
+        <div class="search-hint">Введите слово или фразу для поиска</div>
+    </div>
+
+    <!-- CONTENT -->
+    <div id="content"></div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <a href="#" class="to-top" id="to-top-btn">↑ НАВЕРХ</a>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+// <![CDATA[
+
+// ========== ДАННЫЕ ==========
+var DATA = [
+    {
+        "title": "Промышленная безопасность",
+        "sections": [],
+        "empty": true
+    },
+    {
+        "title": "Гидроочистка (ГО)",
+        "sections": [
+            {
+                "title": "К-101 — Отпарная колонна",
+                "subsections": [
+                    {
+                        "title": "Конструкция, нормы, сигнализации",
+                        "questions": [
+                            {
+                                "title": "Конструкция реактора Р-101, диаграмма загрузки и характеристики материалов в составе катсистемы, назначение слоев.",
+                                "answer": "DS-120 — высокоактивный сферический адсорбент на основе оксида алюминия, оптимизированный для эффективного удаления каталитических ядов. Это регенерируемый адсорбент. Катализатор Защитного слоя ДС-20В представляет собой никельмолибденовый комплекс на носителе -оксиде алюминия и выпускается в форме четырех листного экструдата. Над основным слоем катализатора гидроочистки ДС-120 загружается катализатор защитного слоя ДС-20В, который обладает высокой адсорбционной емкостью по металлам, способствует предварительному гидрооблагораживанию сырья и препятствует образованию кокса."
+                            },
+                            {
+                                "title": "Реакции, протекающие на катализаторе гидроочистки. Влияние технологических параметров.",
+                                "answer": "Основные реакции процесса гидроочистки нафты: превращение органических соединений серы в сероводород; превращение органических соединений азота в аммиак; превращение кислородсодержащих органических соединений в воду; насыщение олефинов; превращение органических галогенидов в галогеноводороды; удаление металлорганических соединений. Удаление серы: R - SH + H2 → RH + H2S (меркаптаны); R - S - R' + 2H2 → RH + R'H + H2S (сульфиды); R - S - S - R' + 3H2 → RH + R'H + 2H2S (дисульфиды); циклические сульфиды + 2H2 → C6H14 + H2S; тиофеновые соединения + 4H2 → C6H14 + H2S."
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Пуск и остановка",
+                        "questions": [
+                            {
+                                "title": "Порядок пуска в работу реакторного блока гидроочистки после краткосрочной/долговременной остановки.",
+                                "answer": "Пуск Блока ГО: 1. Сбросить давление азота на свечу. 2. Принять ВСГ в систему. 3. Набрать давление ВСГ в системе 12-15 кгс/см2. 4. Пустить компрессор ПК-101/1.2. 5. Зашуровать форсунки П-101. 6. Поднять температуру в Р-101 до 160-170 грС со скоростью 15-20грС/ч, набрать давление ВСГ. 7. Сделать выдержку для прогрева системы 2 часа примерно. 8. Принять сырье с минимальным расходом 95куб. 9. После появления уровня в сепараторе С-101 приступить к подъёму температуры в Р-101 до 280 0С, вывести гидрогенизат в К-101. 10. Вывод блока на заданные параметры качества гидрогенизата."
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Риформинг (РИФ)",
+        "sections": [
+            {
+                "title": "Р-301, Р-302, Р-303 — Реакторы",
+                "subsections": [
+                    {
+                        "title": "Конструкция и загрузка",
+                        "questions": [
+                            {
+                                "title": "Реактора Р-301, Р-302, Р-303: конструкция, диаграммы загрузки и характеристики материалов в составе катсистемы, назначение слоев.",
+                                "answer": "Реактор Р-301: Вертикальный цилиндрический аппарат. Оснащен центральной трубой и скэллопами (нержавеющая сталь). Радиальный ввод сырья для обеспечения низкого перепада давления. Тип катализатора: HHR-8. Назначение слоев загрузки (снизу вверх): 1. Керамические шары ∅19 мм: Защита нижнего распределительного устройства. 2. Керамические шары ∅12 мм: Фильтрация и распределение потока. 3. Керамические шары ∅6 мм: Финишная фильтрация и равномерное распределение среды перед слоем катализатора. 4. Катализатор HHR-8: Основной рабочий слой. Объем загрузки 10,524 м³, Масса 6,946 т, Плотность 0,66 т/м³."
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "П-101 — Печь",
+                "subsections": [
+                    {
+                        "title": "Конструкция и пуск",
+                        "questions": [
+                            {
+                                "title": "Конструкция печи П-101, организация потоков, нормы технологического режима, сигнализации и блокировки.",
+                                "answer": "Тип печи: Вертикально-цилиндрическая, радиантно-конвекционная. Назначение: Нагрев газосырьевой смеси перед подачей в реактор Р-101. Количество горелок: 4 основные и 4 пилотные (запальные). Схема змеевика: Трехпоточная, регулируемые по каждому потоку клапанами. Нормы режима: Температура смеси на выходе не более 350 °C (Авария при 360 °C). Давление смеси после печи не менее 2,3 МПа. Температура дымовых газов не более 850 °C (Сигнал) / 900 °C (Авария)."
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Изомеризация (ИЗО)",
+        "sections": [
+            {
+                "title": "К-201 — Колонна ДИП",
+                "subsections": [
+                    {
+                        "title": "Конструкция и нормы",
+                        "questions": [
+                            {
+                                "title": "Колонна К-201: конструкция, технологическая схема, характеристики оборудования, нормы технологического режима.",
+                                "answer": "Колонна К-201: компактная таблица. Параметр: Давление верха, Нормы режима: ≤ 0,289 МПа (рег.), Влияние на качество: Чёткость разделения фракций, Сигнализация: При 0,289 и 0,897 МПа, Блокировка: При 0,931 МПа: закрытие подачи пара в ребойлер (320-UZV-7016). Температура верха: 65–75 °C, Чистота изопентановой фракции, При выходе за диапазон, Нет. Перепад давления: ≤ 130 кПа, Засорение тарелок, ухудшение сепарации, При 130 кПа, Нет."
+                            },
+                            {
+                                "title": "Порядок пуска контура К-201 в работу: прием сырья, настройка холодной циркуляции, вывод на горячую циркуляцию.",
+                                "answer": "Этап 1. Прием сырья: Подача легкой гидроочищенной нафты из секции гидроочистки (Н-105/1(2)) в емкость Е-201. Контроль уровня в Е-201 (20–80%), давления, отбор проб (АР-203). Этап 2. Настройка холодной циркуляции: Переключение циркуляции сырья по схеме: Е-201 → Н-201/1(2) → Т-201 → К-201 → Н-202/1(2) → Т-201 → ХВ-201 → А-202/1,2 → Е-203. Этап 3. Вывод на горячую циркуляцию: Подача сырья на 49-ю тарелку К-201. Включение насосов Н-201/1(2), Н-202/1(2). Запуск ребойлера Т-202."
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "Р-201, Р-202, Р-203 — Реакторы изомеризации",
+                "subsections": [
+                    {
+                        "title": "Конструкция и загрузка",
+                        "questions": [
+                            {
+                                "title": "Реактора Р-201, Р-202, Р-203: конструкция, диаграмма загрузки и характеристики материалов в составе катсистемы, назначение слоев.",
+                                "answer": "Слой (сверху вниз): 1. Керамические шары ∅19 мм, Высота слоя 100 мм, Объём 0,2 м³, Масса 281 кг — Распределение потока, защита нижележащих слоёв. 2. Керамические шары ∅6 мм, 100 мм, 0,2 м³, 281 кг — Дополнительное распределение и поддержка катализатора. 3. Катализатор СИ-2Б, 6765 мм, 13,6 м³, 19 040 кг — Основной рабочий слой (изомеризация). 4. Керамические шары ∅6 мм, 200 мм, 0,4 м³, 563 кг — Защита катализатора от механических примесей. 5. Керамические шары ∅19 мм, 490 мм, 1,8 м³, 2500 кг — Финишная фильтрация и равномерное распределение потока."
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+];
+
+// ========== РЕНДЕРИНГ ==========
+function buildHTML() {
+    var html = '';
+    for (var c = 0; c < DATA.length; c++) {
+        var chapter = DATA[c];
+        html += '<div class="chapter" data-chapter="' + c + '">';
+        html += '<div class="chapter-title">' + chapter.title + '</div>';
+        html += '<div class="chapter-body">';
+
+        if (chapter.empty) {
+            html += '<div class="empty-chapter-note">📄 Раздел находится в разработке. Содержание будет добавлено позднее.</div>';
+        } else {
+            for (var s = 0; s < chapter.sections.length; s++) {
+                var section = chapter.sections[s];
+                html += '<div class="section" data-section="' + s + '">';
+                html += '<div class="section-title">' + section.title + '</div>';
+                html += '<div class="section-body">';
+
+                for (var u = 0; u < section.subsections.length; u++) {
+                    var subsection = section.subsections[u];
+                    html += '<div class="subsection" data-subsection="' + u + '">';
+                    html += '<div class="subsection-title">' + subsection.title + '</div>';
+                    html += '<div class="subsection-body">';
+
+                    for (var q = 0; q < subsection.questions.length; q++) {
+                        var qa = subsection.questions[q];
+                        html += '<div class="qa-item">';
+                        html += '<div class="question">' + qa.title + '</div>';
+                        html += '<div class="answer">' + qa.answer + '</div>';
+                        html += '</div>';
+                    }
+
+                    html += '</div>'; // subsection-body
+                    html += '</div>'; // subsection
+                }
+
+                html += '</div>'; // section-body
+                html += '</div>'; // section
+            }
+        }
+
+        html += '</div>'; // chapter-body
+        html += '</div>'; // chapter
+    }
+    return html;
+}
+
+// ========== АККОРДЕОН ==========
+function initAccordion() {
+    // Chapter level
+    var chapterTitles = document.querySelectorAll('.chapter-title');
+    for (var i = 0; i < chapterTitles.length; i++) {
+        (function(title) {
+            title.addEventListener('click', function(e) {
+                var body = this.nextElementSibling;
+                this.classList.toggle('open');
+                body.classList.toggle('open');
+            });
+        })(chapterTitles[i]);
+    }
+
+    // Section level
+    var sectionTitles = document.querySelectorAll('.section-title');
+    for (var i = 0; i < sectionTitles.length; i++) {
+        (function(title) {
+            title.addEventListener('click', function(e) {
+                var body = this.nextElementSibling;
+                this.classList.toggle('open');
+                body.classList.toggle('open');
+            });
+        })(sectionTitles[i]);
+    }
+
+    // Subsection level
+    var subsectionTitles = document.querySelectorAll('.subsection-title');
+    for (var i = 0; i < subsectionTitles.length; i++) {
+        (function(title) {
+            title.addEventListener('click', function(e) {
+                var body = this.nextElementSibling;
+                this.classList.toggle('open');
+                body.classList.toggle('open');
+            });
+        })(subsectionTitles[i]);
+    }
+
+    // Question level (answer toggle)
+    var questions = document.querySelectorAll('.question');
+    for (var i = 0; i < questions.length; i++) {
+        (function(q) {
+            q.addEventListener('click', function(e) {
+                var answer = this.nextElementSibling;
+                this.classList.toggle('open');
+                if (answer.style.display === 'block') {
+                    answer.style.display = 'none';
+                    this.classList.remove('active');
+                } else {
+                    answer.style.display = 'block';
+                    this.classList.add('active');
+                }
+            });
+        })(questions[i]);
+    }
+}
+
+// ========== ПОИСК ==========
+function initSearch() {
+    var input = document.getElementById('search-input');
+    input.addEventListener('input', function() {
+        var query = this.value.toLowerCase().trim();
+        var allQA = document.querySelectorAll('.qa-item');
+        var chapters = document.querySelectorAll('.chapter');
+
+        if (query === '') {
+            for (var i = 0; i < chapters.length; i++) {
+                chapters[i].style.display = 'block';
+            }
+            for (var i = 0; i < allQA.length; i++) {
+                allQA[i].style.display = 'block';
+            }
+            return;
+        }
+
+        for (var c = 0; c < chapters.length; c++) {
+            var chapter = chapters[c];
+            var qaItems = chapter.querySelectorAll('.qa-item');
+            var chapterHasMatch = false;
+
+            for (var q = 0; q < qaItems.length; q++) {
+                var item = qaItems[q];
+                var questionText = item.querySelector('.question').textContent.toLowerCase();
+                var answerText = item.querySelector('.answer').textContent.toLowerCase();
+
+                if (questionText.indexOf(query) !== -1 || answerText.indexOf(query) !== -1) {
+                    item.style.display = 'block';
+                    chapterHasMatch = true;
+                } else {
+                    item.style.display = 'none';
+                }
+            }
+
+            if (chapterHasMatch) {
+                chapter.style.display = 'block';
+            } else {
+                chapter.style.display = 'none';
+            }
+        }
+
+        // Закрываем все открытые ответы при поиске
+        var allAnswers = document.querySelectorAll('.answer');
+        var allQuestions = document.querySelectorAll('.question');
+        for (var i = 0; i < allAnswers.length; i++) {
+            allAnswers[i].style.display = 'none';
+        }
+        for (var i = 0; i < allQuestions.length; i++) {
+            allQuestions[i].classList.remove('active');
+            allQuestions[i].classList.remove('open');
+        }
+    });
+}
+
+// ========== КНОПКА НАВЕРХ ==========
+function initToTop() {
+    document.getElementById('to-top-btn').addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+// ========== ЗАПУСК ==========
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('content').innerHTML = buildHTML();
+    initAccordion();
+    initSearch();
+    initToTop();
+});
+
+// ]]>
+</script>
+
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портал обучения сотрудников</title>
+    <style>
+        /* Базовые настройки */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fafafa;
+            color: #222;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header, footer {
+            background-color: #1a3a6b;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        main {
+            flex-grow: 1;
+            padding: 20px;
+        }
+        
+        /* Навигационная панель */
+        nav {
+            background-color: #e8f0fe;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        nav button {
+            background-color: transparent;
+            border: none;
+            color: #1a3a6b;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        nav button:hover {
+            background-color: #d4e3fc;
+        }
+        
+        /* Поисковая форма */
+        form.search-form {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        input[type="text"] {
+            padding: 10px;
+            font-size: 1.2rem;
+            border: 2px solid #1a3a6b;
+            border-right: none;
+            border-radius: 5px 0 0 5px;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        button[type="submit"] {
+            background-color: #1a3a6b;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+        
+        /* Карточки документации */
+        .docs-list {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        }
+        
+        .doc-card {
+            background-color: #fafafa;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        
+        .doc-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .doc-card h3 {
+            margin-top: 0;
+            color: #1a3a6b;
+        }
+        
+        /* Вопросы и ответы */
+        .faq-section {
+            margin-top: 40px;
+        }
+        
+        .faq-item {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            background: #fafafa;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        
+        .faq-question {
+            display: block;
+            padding: 14px 18px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1a3a6b;
+            cursor: pointer;
+            background: linear-gradient(135deg, #e8f0fe, #f5f9ff);
+            border-left: 5px solid #1a3a6b;
+            transition: all 0.25s ease;
+            position: relative;
+            user-select: none;
+        }
+        
+        @media (min-width: 768px) {
+            .faq-question { font-size: 1.1rem; }
+        }
+        
+        .faq-question:hover {
+            background: linear-gradient(135deg, #d4e3fc, #e8f0fe);
+            border-left-color: #c0392b;
+        }
+        
+        .faq-question::after {
+            content: "+";
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #1a3a6b;
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-question.active::after {
+            content: "−";
+            transform: translateY(-50%) rotate(0deg);
+        }
+        
+        .faq-answer {
+            display: none;
+            padding: 16px 20px;
+            background: #ffffff;
+            border-top: 1px solid #ddd;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #222;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+        }
+        
+        @media (min-width: 768px) {
+            .faq-answer { font-size: 0.95rem; }
+        }
+        
+        .faq-answer.open {
+            display: block;
+            max-height: 8000px;
+            padding: 16px 20px;
+        }
+        
+        .faq-answer table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 8px 0;
+            font-size: 0.9rem;
+        }
+        
+        .faq-answer table th {
+            background: #1a3a6b;
+            color: #fff;
+            padding: 6px 8px;
+            border: 1px solid #aaa;
+            text-align: center;
+        }
+        
+        .faq-answer table td {
+            padding: 5px 8px;
+            border: 1px solid #ccc;
+            vertical-align: top;
+        }
+        
+        .faq-answer table tr:nth-child(even) {
+            background: #f7f9fc;
+        }
+        
+        .faq-answer ul, .faq-answer ol {
+            padding-left: 22px;
+            margin: 6px 0;
+        }
+        
+        .faq-answer li {
+            margin-bottom: 3px;
+        }
+        
+        .faq-answer strong {
+            color: #1a3a6b;
+        }
+        
+        /* Адаптация для мобильных устройств */
+        @media (max-width: 768px) {
+            nav button {
+                font-size: 1rem;
+            }
+            
+            input[type="text"], button[type="submit"] {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Шапка страницы -->
+<header>
+    <h1>Портал обучения сотрудников</h1>
+</header>
+
+<!-- Основное содержимое -->
+<main>
+    <!-- Панель навигации -->
+    <nav>
+        <button onclick="scrollToSection('training-materials')">Документация</button>
+        <button onclick="scrollToSection('interactive-quiz')">Интерактивные вопросы</button>
+        <button onclick="scrollToSection('qualification')">Повышение квалификации</button>
+    </nav>
+
+    <!-- Поисковая форма -->
+    <form class="search-form" onsubmit="return false;" autocomplete="off">
+        <input type="text" id="searchInput" placeholder="Поиск по документации…">
+        <button type="submit" onclick="performSearch()">Искать</button>
+    </form>
+
+    <!-- Раздел рабочей документации -->
+    <section id="training-materials">
+        <h2>Рабочая документация</h2>
+        <ul class="docs-list">
+            <!-- Пример карточки документации -->
+            <li class="doc-card">
+                <h3>Руководство оператора</h3>
+                <p>Подробное руководство по эксплуатации оборудования и технологиям.</p>
+                <a href="#">Читать подробнее</a>
+            </li>
+            <!-- Другие карточки документации -->
+        </ul>
+    </section>
+
+    <!-- Раздел интерактивных вопросов -->
+    <section id="interactive-quiz">
+        <h2>Интерактивные вопросы и ответы</h2>
+        <div class="faq-section">
+            <!-- Пример вопроса -->
+            <div class="faq-item">
+                <div class="faq-question">Вопрос 1: Каково основное назначение адсорбера К-201?</div>
+                <div class="faq-answer">
+                    <p>Основное назначение адсорбера К-201 заключается в глубокой очистке сырья от сернистых соединений посредством адсорбции на специальном материале (цеолиты типа HHR-18).</p>
+                    <table>
+                        <tr><th>Параметр</th><th>Значение</th></tr>
+                        <tr><td>Диаметр корпуса</td><td>2000 мм</td></tr>
+                        <tr><td>Высота активной зоны</td><td>6765 мм</td></tr>
+                        <tr><td>Максимальное рабочее давление</td><td>2,6 МПа</td></tr>
+                    </table>
+                </div>
+            </div>
+            <!-- Остальные вопросы -->
+        </div>
+    </section>
+
+    <!-- Раздел повышения квалификации -->
+    <section id="qualification">
+        <h2>Программа повышения квалификации</h2>
+        <p>Здесь сотрудники смогут пройти курсы повышения квалификации, ознакомиться с новыми технологиями и методами работы.</p>
+        <!-- Список курсов или ссылка на регистрацию -->
+    </section>
+</main>
+
+<!-- Подвал страницы -->
+<footer>
+    <p>© 2024 Компания. Все права защищены.</p>
+</footer>
+
+<!-- JavaScript для функциональности -->
+<script>
+    // Функция плавного прокрутки к разделам
+    function scrollToSection(id) {
+        document.getElementById(id).scrollIntoView({behavior: 'smooth'});
+    }
+
+    // Функция поиска по карточкам документации
+    function performSearch() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        const docCards = document.querySelectorAll('.doc-card');
+
+        docCards.forEach(card => {
+            const cardText = card.textContent.toLowerCase();
+            if (cardText.includes(searchTerm)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    // Интерактивность вопросов и ответов
+    document.addEventListener('DOMContentLoaded', () => {
+        const questions = document.querySelectorAll('.faq-question');
+
+        questions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                answer.classList.toggle('open');
+                
+                // Закрыть остальные ответы
+                const otherAnswers = [...questions].map(q => q.nextElementSibling).filter(a => a !== answer);
+                otherAnswers.forEach(a => a.classList.remove('open'));
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

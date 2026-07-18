@@ -1,0 +1,536 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/html11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>Карманный справочник</title>
+ <meta http-equiv="Content-type" content="text/html"; charset="utf-8"/>
+ <meta name="viewport" content="width=device-width">
+ <link href="https://proofoil.ru/css/styles.css" rel="stylesheet" type="text/css"/>
+ <link href="https://proofoil.ru/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <!-- Yandex Native Ads -->
+  <script>window.yaContextCb=window.yaContextCb||[]</script>
+  <script src="https://yandex.ru/ads/system/context.js" async></script>
+  <!-- Yandex.RTB R-A-285955-13 -->
+  <script>
+  window.yaContextCb.push(()=>{
+   Ya.Context.AdvManager.render({
+    "blockId": "R-A-285955-13",
+    "type": "fullscreen",
+    "platform": "desktop"
+   })
+  })
+  </script>
+ <script type="text/javascript">
+   function go(addr) {
+  window.open(addr,"MyWin", "menubar=yes,width=1024,height=768");
+   }
+ </script>
+  <script type="text/javascript">
+   function DropDown(el) {
+    this.dd = el;
+    this.initEvents();
+   }
+   DropDown.prototype = {
+    initEvents : function() {
+     var obj = this;
+     obj.dd.on('click', function(event){
+      $(this).toggleClass('active');
+      event.stopPropagation();
+     });
+    }
+   }
+   $(function() {
+    var dd = new DropDown( $('#dd') );
+    $(document).click(function() {
+     // all dropdowns
+     $('.wrapper-dropdown-3').removeClass('active');
+    });
+   });
+  </script>
+  <script type="text/javascript">
+   function DropDown(el) {
+    this.dd1 = el;
+    this.initEvents();
+   }
+   DropDown.prototype = {
+    initEvents : function() {
+     var obj = this;
+     obj.dd1.on('click', function(event){
+      $(this).toggleClass('active');
+      event.stopPropagation();
+     });
+    }
+   }
+   $(function() {
+    var dd1 = new DropDown( $('#dd1') );
+    $(document).click(function() {
+     // all dropdowns
+     $('.wrapper-dropdown-4').removeClass('active');
+    });
+   });
+  </script>
+  <script type="text/javascript">
+   function DropDown(el) {
+    this.dd2 = el;
+    this.initEvents();
+   }
+   DropDown.prototype = {
+    initEvents : function() {
+     var obj = this;
+     obj.dd2.on('click', function(event){
+      $(this).toggleClass('active');
+      event.stopPropagation();
+     });
+    }
+   }
+   $(function() {
+    var dd1 = new DropDown( $('#dd2') );
+    $(document).click(function() {
+     // all dropdowns
+     $('.wrapper-dropdown-5').removeClass('active');
+    });
+   });
+  </script>
+  <script type="text/javascript">
+   function DropDown(el) {
+    this.dd3 = el;
+    this.initEvents();
+   }
+   DropDown.prototype = {
+    initEvents : function() {
+     var obj = this;
+     obj.dd3.on('click', function(event){
+      $(this).toggleClass('active');
+      event.stopPropagation();
+     });
+    }
+   }
+   $(function() {
+    var dd1 = new DropDown( $('#dd3') );
+    $(document).click(function() {
+     // all dropdowns
+     $('.wrapper-dropdown-5').removeClass('active');
+    });
+   });
+  </script>
+  <script type="text/javascript">
+   function DropDown(el) {
+    this.dd4 = el;
+    this.initEvents();
+   }
+   DropDown.prototype = {
+    initEvents : function() {
+     var obj = this;
+     obj.dd4.on('click', function(event){
+      $(this).toggleClass('active');
+      event.stopPropagation();
+     });
+    }
+   }
+   $(function() {
+    var dd4 = new DropDown( $('#dd4') );
+    $(document).click(function() {
+     // all dropdowns
+     $('.wrapper-dropdown-5').removeClass('active');
+    });
+   });
+  </script>
+  <script type="text/javascript">
+   // Скрипт для сворачивания/разворачивания вкладок
+   $(document).ready(function(){
+    // При клике на ссылку с классом toggle-section
+    $('.toggle-section').click(function(e){
+     e.preventDefault();
+     // Ищем элемент с data-target, соответствующий data-id кнопки
+     var targetId = $(this).data('target');
+     $('#' + targetId).slideToggle(300);
+    });
+    
+    // Скрипт для аккордеона вопросов
+    $('.question-toggle').click(function(e){
+     e.preventDefault();
+     var answerId = $(this).data('answer');
+     $('#' + answerId).slideToggle(300);
+    });
+   });
+  </script>
+  
+  <!-- ========== СКРИПТ ПОИСКА ========== -->
+  <script type="text/javascript">
+   $(document).ready(function(){
+    // Функция поиска по всем пунктам меню
+    $('#search-input').on('keyup', function(){
+     var query = $(this).val().toLowerCase().trim();
+     
+     // Находим все ссылки внутри таблицы контента (кроме поисковой строки)
+     var items = $('#content-table').find('a');
+     
+     if(query === '') {
+      // Если поле пустое — показываем всё, сворачиваем вложенные блоки
+      items.closest('tr').show();
+      $('.toggle-content').hide();
+      // Показываем основные заголовки
+      $('.main-header').show();
+      return;
+     }
+     
+     // Скрываем всё
+     items.closest('tr').hide();
+     
+     // Ищем совпадения
+     items.each(function(){
+      var text = $(this).text().toLowerCase().trim();
+      if(text.indexOf(query) !== -1) {
+       var $row = $(this).closest('tr');
+       $row.show();
+       
+       // Если найденный элемент находится внутри скрываемого блока — показываем весь блок
+       var $toggleParent = $row.closest('.toggle-content');
+       if($toggleParent.length > 0) {
+        $toggleParent.show();
+        // Показываем заголовок-родитель (ссылку, которая открывает этот блок)
+        var parentId = $toggleParent.attr('id');
+        $('[data-target="' + parentId + '"]').closest('tr').show();
+       }
+      }
+     });
+     
+     // Показываем все заголовки-родители, у которых есть видимые дочерние элементы
+     $('.toggle-section').each(function(){
+      var targetId = $(this).data('target');
+      var $target = $('#' + targetId);
+      if($target.find('tr:visible').length > 0) {
+       $(this).closest('tr').show();
+       $target.show();
+      }
+     });
+    });
+   });
+  </script>
+  
+  <style type="text/css">
+   /* Стили для поисковой строки */
+   .search-container {
+    margin: 10px 0;
+    text-align: center;
+   }
+   #search-input {
+    width: 90%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 25px;
+    outline: none;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+   }
+   #search-input:focus {
+    border-color: #4A90D9;
+   }
+   
+   /* Стили для аккордеона вопросов */
+   .question-block {
+    width: 100%;
+    margin: 5px 0;
+   }
+   .question-toggle {
+    display: block;
+    text-decoration: none;
+    color: #333;
+   }
+   .question-toggle .wrapper-dropdown-3 {
+    background-color: #e8f0fe;
+    border: 1px solid #b8d4fe;
+    margin: 2px 0;
+   }
+   .question-toggle .wrapper-dropdown-3 h1 {
+    font-size: 5vw !important;
+    text-align: left;
+    padding: 5px 10px;
+   }
+   .answer-content {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-top: none;
+    padding: 15px;
+    text-align: left;
+    font-size: 3.5vw;
+    line-height: 1.5;
+   }
+   .answer-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 3vw;
+   }
+   .answer-content table td, 
+   .answer-content table th {
+    border: 1px solid #ccc;
+    padding: 6px 8px;
+    vertical-align: top;
+   }
+   .answer-content table th {
+    background-color: #e0e0e0;
+    font-weight: bold;
+   }
+   .answer-content h3 {
+    font-size: 4.5vw;
+    margin: 10px 0 5px;
+   }
+   .answer-content h4 {
+    font-size: 4vw;
+    margin: 8px 0 4px;
+   }
+   .answer-content ul, 
+   .answer-content ol {
+    margin: 5px 0;
+    padding-left: 20px;
+   }
+   .answer-content li {
+    margin: 3px 0;
+   }
+  </style>
+</head>
+<body text="black" bgcolor="ffffff">
+ <table width="100%" cellspacing="0" cellpadding="0">
+ <div id="top"></div>
+ <div id="header">
+  <tr height="30" align="center">
+   <td width="1%" bgcolor="fafafa"><div class="wrapper-dropdown-7"></div></td>
+   <td colspan="3"><div class="wrapper-dropdown-3" tabindex="1"><h1 style="font-size: 10vw">А-101/1(2)</h1></div></td>
+   <td width="1%" bgcolor="fafafa"><div class="wrapper-dropdown-7"></div></td>
+  </tr>
+ </div>
+  <tr>
+ <div id="content">
+    <td class="gradient" width="1%" valign="top"></td>
+    <td colspan="3">
+     
+     <!-- ========== СТРОКА ПОИСКА ========== -->
+     <div class="search-container">
+      <input type="text" id="search-input" placeholder="🔍 Поиск по справочнику..." />
+     </div>
+     
+     <table id="content-table" width="100%" class="center" cellspacing="0" cellpadding="0">
+      
+      <!-- ОСНОВНЫЕ ПУНКТЫ (main-header) -->
+      <tr class="main-header">
+       <td bgcolor="FFFFFF" class="center">
+        <a target="_self" href="https://proofoil.ru/Mobile/KUPAB/KUPAB2/KUPAB020111.html" title="Характеристики А-101/1(2)"><div class="wrapper-dropdown-8" width="100%" tabindex="1"><h2 style="font-size: 8vw">ХАРАКТЕРИСТИКИ</h2>
+        </div></a>
+       </td>
+      </tr>
+      <tr class="main-header">
+       <td bgcolor="FFFFFF" class="center">
+        <a target="_self" href="https://proofoil.ru/Mobile/KUPAB/KUPAB2/KUPAB020112.html" title="Схема включения А-101/1(2)"><div class="wrapper-dropdown-7" width="100%" tabindex="1"><h2 style="font-size: 8vw">СХЕМА ВКЛЮЧЕНИЯ</h2>
+        </div></a>
+       </td>
+      </tr>
+      <tr class="main-header">
+       <td bgcolor="FFFFFF" class="center">
+        <a target="_self" href="https://proofoil.ru/Mobile/KUPAB/KUPAB2/KUPAB020113.html" title="Общий вид А-101/1(2)"><div class="wrapper-dropdown-8" width="100%" tabindex="1"><h2 style="font-size: 8vw">ОБЩИЙ ВИД</h2>
+        </div></a>
+       </td>
+      </tr>
+      <tr class="main-header">
+       <td bgcolor="FFFFFF" class="center">
+        <a target="_self" href="https://proofoil.ru/Mobile/KUPAB/KUPAB2/KUPAB020114.html" title="Сборочный чертеж А-101/1(2)"><div class="wrapper-dropdown-7" width="100%" tabindex="1"><h2 style="font-size: 8vw">СБОРОЧНЫЙ ЧЕРТЕЖ</h2>
+        </div></a>
+       </td>
+      </tr>
+      <tr class="main-header">
+       <td bgcolor="FFFFFF" class="center">
+        <a target="_self" href="https://proofoil.ru/Mobile/KUPAB/KUPAB2/KUPAB020115.html" title="Местоположение А-101/1(2)"><div class="wrapper-dropdown-8" width="100%" tabindex="1"><h2 style="font-size: 8vw">МЕСТОПОЛОЖЕНИЕ</h2>
+        </div></a>
+       </td>
+      </tr>
+
+      <!-- ========== РАЗВИТИЕ ПЕРСОНАЛА (кликабельный заголовок) ========== -->
+      <tr class="main-header">
+       <td bgcolor="FFFFFF" class="center">
+        <a href="#" class="toggle-section" data-target="development-content"><div class="wrapper-dropdown-3" tabindex="1"><h1 style="font-size: 10vw">РАЗВИТИЕ ПЕРСОНАЛА</h1></div></a>
+       </td>
+      </tr>
+
+      <!-- ========== Скрываемый блок (только изомеризация) ========== -->
+      <tr id="development-content" class="toggle-content" style="display: none;">
+       <td bgcolor="FFFFFF" class="center">
+        <table width="100%" class="center" cellspacing="0" cellpadding="0">
+
+         <!-- ========== ЗАГОЛОВОК ИЗОМЕРИЗАЦИИ (кликабельный, вложенный) ========== -->
+         <tr>
+          <td bgcolor="FFFFFF" class="center">
+           <a href="#" class="toggle-section" data-target="isomerization-content"><div class="wrapper-dropdown-3" tabindex="1"><h1 style="font-size: 10vw">ИЗОМЕРИЗАЦИЯ</h1></div></a>
+          </td>
+         </tr>
+
+         <!-- ========== Скрываемый блок Изомеризации ========== -->
+         <tr id="isomerization-content" class="toggle-content" style="display: none;">
+          <td bgcolor="FFFFFF" class="center">
+           <table width="100%" class="center" cellspacing="0" cellpadding="0">
+            
+            <!-- ========== ВОПРОС 1: Колонна К-201 ========== -->
+            <tr>
+             <td bgcolor="FFFFFF" class="center question-block">
+              <a href="#" class="question-toggle" data-answer="answer1">
+               <div class="wrapper-dropdown-3" tabindex="1"><h1 style="font-size: 5vw">❓ Колонна К-201: конструкция, технологическая схема, нормы режима</h1></div>
+              </a>
+             </td>
+            </tr>
+            <tr id="answer1" class="answer-content" style="display: none;">
+             <td bgcolor="FFFFFF">
+              <h3>Колонна К-201 — компактная таблица</h3>
+              <table>
+               <tr>
+                <th>Параметр</th>
+                <th>Нормы режима</th>
+                <th>Влияние на качество</th>
+                <th>Сигнализация</th>
+                <th>Блокировка</th>
+               </tr>
+               <tr>
+                <td>Давление верха</td>
+                <td>≤ 0,289 МПа (рег.)</td>
+                <td>Чёткость разделения фракций</td>
+                <td>При 0,289 и 0,897 МПа</td>
+                <td>При 0,931 МПа: закрытие подачи пара в ребойлер (320-UZV-7016)</td>
+               </tr>
+               <tr>
+                <td>Температура верха</td>
+                <td>65–75 °C</td>
+                <td>Чистота изопентановой фракции</td>
+                <td>При выходе за диапазон</td>
+                <td>Нет</td>
+               </tr>
+               <tr>
+                <td>Перепад давления</td>
+                <td>≤ 130 кПа</td>
+                <td>Засорение тарелок, ухудшение сепарации</td>
+                <td>При 130 кПа</td>
+                <td>Нет</td>
+               </tr>
+               <tr>
+                <td>Уровень куба</td>
+                <td>8–38 %</td>
+                <td>Риск оголения тарелок / уноса жидкости</td>
+                <td>При 8% и 38%</td>
+                <td>При 4%: отключение насоса Н-202/1(2)</td>
+               </tr>
+               <tr>
+                <td>Температура куба</td>
+                <td>90–110 °C</td>
+                <td>Степень извлечения изопентана</td>
+                <td>При выходе за диапазон</td>
+                <td>Нет</td>
+               </tr>
+               <tr>
+                <td>Расход орошения</td>
+                <td>120–155 м³/ч</td>
+                <td>Качество разделения фракций</td>
+                <td>При выходе за диапазон</td>
+                <td>Нет</td>
+               </tr>
+               <tr>
+                <td>Расход кубового продукта</td>
+                <td>≥ 23,25 м³/ч (рег.) ≥ 28,36 м³/ч (общ.)</td>
+                <td>Качество сырья блока реакции</td>
+                <td>При снижении до 28,36 / 23,25 м³/ч</td>
+                <td>Нет</td>
+               </tr>
+               <tr>
+                <td>Т-сырья перед Т-201</td>
+                <td>74–82 °C</td>
+                <td>Эффективность теплообмена</td>
+                <td>При выходе за диапазон</td>
+                <td>Нет</td>
+               </tr>
+               <tr>
+                <td>Т-изопентана после ХВ-202</td>
+                <td>45–60 °C</td>
+                <td>Качество конденсации, потери продукта</td>
+                <td>&lt;45 °C и &gt;60 °C</td>
+                <td>Нет</td>
+               </tr>
+               <tr>
+                <td>Т-кубового продукта после ХВ-201</td>
+                <td>≤ 56 °C (рег.) ≤ 56 °C (сигн.)</td>
+                <td>Качество сырья блока реакции, риск разложения</td>
+                <td>&gt;56 °C (по двум приборам)</td>
+                <td>Нет</td>
+               </tr>
+              </table>
+             </td>
+            </tr>
+            
+            <!-- ========== ВОПРОС 2: Порядок пуска контура К-201 ========== -->
+            <tr>
+             <td bgcolor="FFFFFF" class="center question-block">
+              <a href="#" class="question-toggle" data-answer="answer2">
+               <div class="wrapper-dropdown-3" tabindex="1"><h1 style="font-size: 5vw">❓ Порядок пуска контура К-201 в работу</h1></div>
+              </a>
+             </td>
+            </tr>
+            <tr id="answer2" class="answer-content" style="display: none;">
+             <td bgcolor="FFFFFF">
+              <h3>Порядок пуска контура К-201</h3>
+              <table>
+               <tr>
+                <th>Этап</th>
+                <th>Действия и операции</th>
+                <th>Ключевые параметры и оборудование</th>
+               </tr>
+               <tr>
+                <td><strong>1. Прием сырья</strong></td>
+                <td>Подача легкой гидроочищенной нафты из секции гидроочистки (Н-105/1(2)) в емкость Е-201. Контроль уровня в Е-201 (20–80%), давления, отбор проб (АР-203).</td>
+                <td>Уровень Е-201: 20–80% (сигнализация 19/81%, блокировка 8% — отключение Н-201/1(2)). Давление контролируется по поз. 320-PG-2512.</td>
+               </tr>
+               <tr>
+                <td><strong>2. Настройка холодной циркуляции</strong></td>
+                <td>Переключение циркуляции сырья по схеме: Е-201 → Н-201/1(2) → Т-201 → К-201 → Н-202/1(2) → Т-201 → ХВ-201 → А-202/1,2 → Е-203. Контроль качества сырья после осушителей (влага ≤ 1,0 ppm).</td>
+                <td>Расход по поз. 320-FIRCAL-3044 (не менее 39 м³/ч — сигнализация). Температура перед Т-201: поз. 320-ТIR-1011. После Т-201: 74–82 °C (поз. 320-ТIR-1017).</td>
+               </tr>
+               <tr>
+                <td><strong>3. Вывод на горячую циркуляцию</strong></td>
+                <td>Подача сырья на 49-ю тарелку К-201. Включение насосов Н-201/1(2), Н-202/1(2). Запуск ребойлера Т-202 (подача пара НД через клапан 320-UZV-7016). Контроль температуры куба К-201 (90–110 °C, поз. 320-ТIR-1018), давления верха (≤ 0,289 МПа, поз. 320-PIRСАH-2011).</td>
+                <td>Уровень куба К-201: 8–38% (сигнализация 8/38%, блокировка 4% — отключение Н-202/1(2)). Перепад по колонне ≤ 130 кПа (сигнализация).</td>
+               </tr>
+               <tr>
+                <td><strong>4. Вывод на нормальный технологический режим</strong></td>
+                <td>Стабилизация параметров:<br>- Верх колонны: температура 65–75 °C, давление ≤ 0,289 МПа.<br>- Куб: температура 90–110 °C, уровень 8–38%.<br>- Орошение: расход 120–155 м³/ч.<br>- Контроль качества верхнего продукта (изопентановая фракция) и кубового продукта (деизопентанизированная фракция).<br>- Включение в работу всех контуров регулирования в автоматический режим.</td>
+                <td>Все параметры поддерживаются в указанных диапазонах с помощью АСУ ТП. Сигнализации и блокировки по всем критическим параметрам активны для обеспечения безопасности и качества продукции.</td>
+               </tr>
+              </table>
+             </td>
+            </tr>
+            
+           </table>
+          </td>
+         </tr>
+
+        </table>
+       </td>
+      </tr>
+
+     </table>
+    </td>
+    <td class="gradient" width="1%" valign="top"></td>
+ </div>
+  </tr>
+    <div class="clear"></div>
+ <div id="footer" class="center">
+  <table width="100%">
+   <tr height="30">
+    <td width="33%" bgcolor="fafafa" class="center"><div class="wrapper-dropdown-7" style="font-size: 5vw"><strong><a target="_self" href="https://proofoil.ru/Mobile/Mobile0.html" title="Главная страница">ГЛАВНОЕ МЕНЮ</a></strong></div></td>
+    <td bgcolor="fafafa" class="center">
+    </td>
+    <td bgcolor="fafafa" width="34%" class="center"><div id="dd2" class="wrapper-dropdown-6">
+     <font size="4"><a href="#top" style="font-size: 5vw"><strong>НАВЕРХ</strong></a></div>
+    </td>
+    <td width="33%" bgcolor="fafafa" class="center"><div class="wrapper-dropdown-7" style="font-size: 5vw"><strong><a target="_self" href="https://proofoil.ru/Mobile/KUPAB/KUPAB0.html" title="Тит.300">МЕНЮ РАЗДЕЛА</a></strong></div></td>
+   </tr>
+  </table>
+ </div>
+ </table>
+</body>
+</html>

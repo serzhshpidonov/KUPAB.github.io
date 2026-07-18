@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Портал знаний — Развитие персонала</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+            background: #f0f4f8;
+            color: #1a2a3a;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+            font-size: 18px; /* Базовый шрифт 18px */
+        }
+        .main-header {
+            background: linear-gradient(135deg, #1a3a6b 0%, #2a5a9b 100%);
+            color: #fff;
+            padding: 20px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .main-header h1 {
+            font-size: clamp(1.4rem, 5vw, 2.2rem);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .main-header h1 span {
+            color: #ffd700;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px 20px 80px;
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 22px;
+            margin: 24px 0 36px;
+        }
+        .menu-card {
+            background: linear-gradient(145deg, #ffffff, #f5f8fe);
+            border-radius: 18px;
+            padding: 36px 24px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(26, 58, 107, 0.10);
+            border-left: 8px solid #1a3a6b;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(26, 58, 107, 0.18);
+            border-left-color: #c0392b;
+        }
+        .menu-card:active {
+            transform: scale(0.97);
+        }
+        .menu-card .icon {
+            font-size: 3.6rem;
+            margin-bottom: 12px;
+        }
+        .menu-card h2 {
+            font-size: clamp(1.3rem, 4vw, 1.7rem);
+            color: #1a3a6b;
+            font-weight: 700;
+        }
+        .menu-card p {
+            font-size: clamp(0.95rem, 2.8vw, 1.1rem);
+            color: #5a6a7a;
+            margin-top: 8px;
+        }
+        .submenu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 18px;
+            margin: 22px 0 30px;
+        }
+        .submenu-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 26px 16px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border-bottom: 5px solid #2a5a9b;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .submenu-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(26, 58, 107, 0.12);
+            border-bottom-color: #c0392b;
+        }
+        .submenu-card .sicon {
+            font-size: 2.8rem;
+        }
+        .submenu-card h3 {
+            font-size: clamp(1.1rem, 3.2vw, 1.4rem);
+            color: #1a3a6b;
+            margin-top: 8px;
+        }
+        .page {
+            display: none;
+        }
+        .page.active-page {
+            display: block;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #1a3a6b;
+            font-weight: 600;
+            font-size: clamp(1rem, 3vw, 1.15rem);
+            cursor: pointer;
+            margin-bottom: 16px;
+            padding: 8px 18px;
+            border-radius: 24px;
+            background: #e8edf4;
+            transition: background 0.2s;
+            border: none;
+        }
+        .back-link:hover {
+            background: #d4dff0;
+        }
+        .nav-controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 14px;
+            margin: 30px 0 10px;
+        }
+        .nav-btn {
+            background: linear-gradient(135deg, #1a3a6b, #2a5a9b);
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            padding: 14px 28px;
+            font-size: clamp(0.95rem, 2.8vw, 1.15rem);
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(26,58,107,0.25);
+            transition: all 0.25s ease;
+        }
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(26,58,107,0.35);
+        }
+        .nav-btn.secondary {
+            background: #e8edf4;
+            color: #1a3a6b;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .nav-btn.secondary:hover {
+            background: #d4dff0;
+        }
+        h2.section-title {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            color: #1a3a6b;
+            margin-bottom: 8px;
+        }
+        p.section-desc {
+            color: #5a6a7a;
+            margin-bottom: 20px;
+            font-size: clamp(1rem, 3vw, 1.15rem);
+        }
+        .tabs-container {
+            margin: 24px 0 14px;
+        }
+        .tabs-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            border-bottom: 3px solid #1a3a6b;
+            padding-bottom: 2px;
+        }
+        .tab-btn {
+            padding: 12px 22px;
+            background: #e8edf4;
+            border: none;
+            border-radius: 12px 12px 0 0;
+            font-size: clamp(0.9rem, 2.6vw, 1.05rem);
+            font-weight: 600;
+            color: #1a3a6b;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn:hover {
+            background: #d4dff0;
+        }
+        .tab-btn.active {
+            background: #1a3a6b;
+            color: #fff;
+        }
+        .tab-content {
+            display: none;
+            background: #fff;
+            border-radius: 0 0 14px 14px;
+            padding: 20px 22px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+            border: 1px solid #dde4ee;
+            border-top: none;
+            font-size: clamp(0.95rem, 2.8vw, 1.1rem);
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .faq-section {
+            margin: 12px 0;
+        }
+        .faq-item {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            background: #fafafa;
+        }
+        .faq-question {
+            display: block;
+            padding: 16px 20px;
+            font-size: clamp(1rem, 3.5vw, 1.2rem);
+            font-weight: 700;
+            color: #1a3a6b;
+            cursor: pointer;
+            background: linear-gradient(135deg, #e8f0fe, #f5f9ff);
+            border-left: 6px solid #1a3a6b;
+            transition: all 0.25s ease;
+            user-select: none;
+        }
+        .faq-question:hover {
+            background: linear-gradient(135deg, #d4e3fc, #e8f0fe);
+            border-left-color: #c0392b;
+        }
+        .faq-answer {
+            display: none;
+            padding: 18px 20px;
+            background: #ffffff;
+            border-top: 1px solid #ddd;
+            font-size: clamp(0.95rem, 3vw, 1.1rem);
+            line-height: 1.7;
+        }
+        .faq-answer.open {
+            display: block;
+        }
+        .faq-answer table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: clamp(0.85rem, 2.8vw, 1rem);
+        }
+        .faq-answer table th {
+            background: #1a3a6b;
+            color: #fff;
+            padding: 8px 10px;
+            border: 1px solid #aaa;
+            text-align: center;
+        }
+        .faq-answer table td {
+            padding: 7px 10px;
+            border: 1px solid #ccc;
+        }
+        .faq-answer ul, .faq-answer ol {
+            padding-left: 26px;
+            margin: 8px 0;
+        }
+        .faq-answer li {
+            margin-bottom: 4px;
+        }
+        .scroll-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #1a3a6b;
+            color: #fff;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 999;
+            border: none;
+            opacity: 0.85;
+        }
+        .scroll-top:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        <span style="color: hsl(var(--primary)); font-weight: 500;">@media</span> (max-width: 600px) {
+            body { font-size: 16px; }
+            .main-header { padding: 14px 16px; }
+            .container { padding: 16px 12px 70px; }
+            .menu-grid { grid-template-columns: 1fr; gap: 14px; }
+            .submenu-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .tab-btn { padding: 10px 14px; font-size: 0.85rem; }
+            .nav-btn { padding: 12px 18px; font-size: 0.85rem; }
+            .menu-card { padding: 28px 18px; }
+            .submenu-card { padding: 20px 12px; }
+        }
+        <span style="color: hsl(var(--primary)); font-weight: 500;">@media</span> (max-width: 400px) {
+            .submenu-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="main-header">
+    <h1>📚 Портал <span>Знаний</span></h1>
+</header>
+
+<div class="container" id="mainContainer">
+
+    <!-- ===== СТРАНИЦА: ГЛАВНАЯ ===== -->
+    <div class="page active-page" id="page-main">
+        <h2 class="section-title">📖 Добро пожаловать в портал знаний!</h2>
+        <p class="section-desc">Выберите раздел для изучения материалов</p>
+        <div class="menu-grid">
+            <div class="menu-card" onclick="showPage('staff')">
+                <div class="icon">👥</div>
+                <h2>Развитие персонала</h2>
+                <p>Обучение, подготовка, повышение квалификации</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== СТРАНИЦА: РАЗВИТИЕ ПЕРСОНАЛА ===== -->
+    <div class="page" id="page-staff">
+        <button class="back-link" onclick="showPage('main')">← На главную</button>
+        <h2 class="section-title">👥 Развитие персонала</h2>
+        <p class="section-desc">Выберите технологический блок</p>
+        <div class="submenu-grid">
+            <div class="submenu-card" onclick="showPage('prombez')">
+                <div class="sicon">⚠️</div>
+                <h3>Промбез</h3>
+            </div>
+            <div class="submenu-card" onclick="showPage('hydro')">
+                <div class="sicon">💧</div>
+                <h3>Гидроочистка</h3>
+            </div>
+            <div class="submenu-card" onclick="showPage('reform')">
+                <div class="sicon">🔥</div>
+                <h3>Риформинг</h3>
+            </div>
+            <div class="submenu-card" onclick="showPage('isomer')">
+                <div class="sicon">⚗️</div>
+                <h3>Изомеризация</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== СТРАНИЦА: ПРОМБЕЗ ===== -->
+    <div class="page" id="page-prombez">
+        <button class="back-link" onclick="showPage('staff')">← Развитие персонала</button>
+        <h2 class="section-title">⚠️ Промышленная безопасность</h2>
+        <p class="section-desc">Материалы по промышленной безопасности</p>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">1. Основные требования промбезопасности на установке</div>
+            <div class="faq-answer">
+                <table>
+                    <tr><th>Требование</th><th>Описание</th></tr>
+                    <tr><td>Наряд-допуск</td><td>Обязательное оформление на все виды работ</td></tr>
+                    <tr><td>СИЗ</td><td>Каска, очки, перчатки, спецобувь</td></tr>
+                    <tr><td>Пожарная безопасность</td><td>Запрет открытого огня, средства пожаротушения</td></tr>
+                </table>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">2. Действия при аварийной ситуации</div>
+            <div class="faq-answer">
+                <ul>
+                    <li>Прекратить работы, покинуть опасную зону</li>
+                    <li>Сообщить руководителю</li>
+                    <li>Применить первичные средства пожаротушения</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="nav-controls">
+            <button class="nav-btn" onclick="showPage('staff')">◀ Назад</button>
+            <button class="nav-btn secondary" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆ Вверх</button>
+        </div>
+    </div>
+
+    <!-- ===== СТРАНИЦА: ГИДРООЧИСТКА ===== -->
+    <div class="page" id="page-hydro">
+        <button class="back-link" onclick="showPage('staff')">← Развитие персонала</button>
+        <h2 class="section-title">💧 Гидроочистка</h2>
+
+        <div class="tabs-container">
+            <div class="tabs-nav">
+                <button class="tab-btn active" onclick="switchTab(this, 'hydro-qa')">Вопросы и ответы</button>
+                <button class="tab-btn" onclick="switchTab(this, 'hydro-norms')">Нормы</button>
+                <button class="tab-btn" onclick="switchTab(this, 'hydro-block')">Блокировки</button>
+                <button class="tab-btn" onclick="switchTab(this, 'hydro-scheme')">Схемы</button>
+            </div>
+            <div class="tab-content active" id="hydro-qa">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">1. Назначение гидроочистки</div>
+                    <div class="faq-answer">Гидроочистка предназначена для удаления сернистых, азотистых и кислородсодержащих соединений из нефтяных фракций.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">2. Катализатор гидроочистки</div>
+                    <div class="faq-answer">Используются алюмокобальтмолибденовые (АКМ) и алюмоникельмолибденовые (АНМ) катализаторы.</div>
+                </div>
+            </div>
+            <div class="tab-content" id="hydro-norms">
+                <table>
+                    <tr><th>Параметр</th><th>Норма</th></tr>
+                    <tr><td>Температура в реакторе</td><td>320–400 °C</td></tr>
+                    <tr><td>Давление</td><td>2,5–4,0 МПа</td></tr>
+                    <tr><td>Содержание серы на выходе</td><td>≤ 10 ppm</td></tr>
+                </table>
+            </div>
+            <div class="tab-content" id="hydro-block">
+                <ul>
+                    <li>Температура > 420 °C — аварийный сброс</li>
+                    <li>Давление > 4,5 МПа — ППК</li>
+                    <li>Превышение H₂S — остановка подачи сырья</li>
+                </ul>
+            </div>
+            <div class="tab-content" id="hydro-scheme">
+                <p><strong>Принципиальная схема:</strong></p>
+                <ul>
+                    <li>Сырьё → теплообменник → печь → реактор → сепаратор → стабилизатор</li>
+                    <li>ВСГ подаётся в смеситель перед печью</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="nav-controls">
+            <button class="nav-btn" onclick="showPage('staff')">◀ Назад</button>
+            <button class="nav-btn secondary" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆ Вверх</button>
+        </div>
+    </div>
+
+    <!-- ===== СТРАНИЦА: РИФОРМИНГ ===== -->
+    <div class="page" id="page-reform">
+        <button class="back-link" onclick="showPage('staff')">← Развитие персонала</button>
+        <h2 class="section-title">🔥 Риформинг</h2>
+
+        <div class="tabs-container">
+            <div class="tabs-nav">
+                <button class="tab-btn active" onclick="switchTab(this, 'reform-qa')">Вопросы и ответы</button>
+                <button class="tab-btn" onclick="switchTab(this, 'reform-norms')">Нормы</button>
+                <button class="tab-btn" onclick="switchTab(this, 'reform-block')">Блокировки</button>
+                <button class="tab-btn" onclick="switchTab(this, 'reform-scheme')">Схемы</button>
+            </div>
+            <div class="tab-content active" id="reform-qa">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">1. Что такое риформинг?</div>
+                    <div class="faq-answer">Каталитический процесс повышения октанового числа бензиновых фракций.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">2. Типы катализаторов</div>
+                    <div class="faq-answer">Платинорениевые, платиноиридиевые, платинооловянные.</div>
+                </div>
+            </div>
+            <div class="tab-content" id="reform-norms">
+                <table>
+                    <tr><th>Параметр</th><th>Норма</th></tr>
+                    <tr><td>Температура</td><td>480–530 °C</td></tr>
+                    <tr><td>Давление</td><td>0,3–1,5 МПа</td></tr>
+                    <tr><td>Октановое число</td><td>95–102 ИОЧ</td></tr>
+                </table>
+            </div>
+            <div class="tab-content" id="reform-block">
+                <ul>
+                    <li>Температура > 550 °C — аварийная остановка</li>
+                    <li>Снижение давления ВСГ — отключение печи</li>
+                    <li>Превышение перепада давления на реакторе</li>
+                </ul>
+            </div>
+            <div class="tab-content" id="reform-scheme">
+                <p><strong>Схема блока риформинга:</strong></p>
+                <ul>
+                    <li>Сырьё → печь → реактор 1 → печь → реактор 2 → печь → реактор 3 → сепарация</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="nav-controls">
+            <button class="nav-btn" onclick="showPage('staff')">◀ Назад</button>
+            <button class="nav-btn secondary" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆ Вверх</button>
+        </div>
+    </div>
+
+    <!-- ===== СТРАНИЦА: ИЗОМЕРИЗАЦИЯ ===== -->
+    <div class="page" id="page-isomer">
+        <button class="back-link" onclick="showPage('staff')">← Развитие персонала</button>
+        <h2 class="section-title">⚗️ Изомеризация</h2>
+
+        <div class="tabs-container">
+            <div class="tabs-nav">
+                <button class="tab-btn active" onclick="switchTab(this, 'isomer-qa')">Вопросы и ответы</button>
+                <button class="tab-btn" onclick="switchTab(this, 'isomer-norms')">Нормы</button>
+                <button class="tab-btn" onclick="switchTab(this, 'isomer-block')">Блокировки</button>
+                <button class="tab-btn" onclick="switchTab(this, 'isomer-scheme')">Схемы</button>
+            </div>
+            <div class="tab-content active" id="isomer-qa">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">1. Цель изомеризации</div>
+                    <div class="faq-answer">Превращение нормальных парафинов в изопарафины для повышения октанового числа.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">2. Катализатор изомеризации</div>
+                    <div class="faq-answer">Платина на оксидно-циркониевой основе (СИ-2Б), цеолитные катализаторы.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">3. Каталитические яды</div>
+                    <div class="faq-answer">Сера, азот, вода, CO, CO₂, тяжёлые металлы (Pb, As).</div>
+                </div>
+            </div>
+            <div class="tab-content" id="isomer-norms">
+                <table>
+                    <tr><th>Параметр</th><th>Норма</th></tr>
+                    <tr><td>Температура в реакторе</td><td>110–165 °C</td></tr>
+                    <tr><td>Давление</td><td>3,5–4,2 МПа</td></tr>
+                    <tr><td>H₂:УВ</td><td>≥ 0,05:1</td></tr>
+                    <tr><td>Влажность сырья</td><td>≤ 1,0 ppm</td></tr>
+                </table>
+            </div>
+            <div class="tab-content" id="isomer-block">
+                <ul>
+                    <li>Температура ≥ 221 °C — закрытие отсечных клапанов</li>
+                    <li>Расход сырья < 31,5 м³/ч — остановка</li>
+                    <li>Расход ВСГ < 720 нм³/ч — блокировка</li>
+                    <li>Влажность > 1,0 ppm — автоперевод на регенерацию</li>
+                </ul>
+            </div>
+            <div class="tab-content" id="isomer-scheme">
+                <p><strong>Схема реакторного блока:</strong></p>
+                <ul>
+                    <li>Сырьё → осушка → смешение с ВСГ → теплообменники → Р-201 → Р-202 → Р-203 → стабилизация</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="nav-controls">
+            <button class="nav-btn" onclick="showPage('staff')">◀ Назад</button>
+            <button class="nav-btn secondary" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆ Вверх</button>
+        </div>
+    </div>
+
+</div>
+
+<button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆</button>
+
+<script>
+    function showPage(pageId) {
+        var pages = document.querySelectorAll('.page');
+        for (var i = 0; i < pages.length; i++) {
+            pages[i].classList.remove('active-page');
+        }
+        var target = document.getElementById('page-' + pageId);
+        if (target) {
+            target.classList.add('active-page');
+        }
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    function toggleFaq(el) {
+        var answer = el.nextElementSibling;
+        if (answer && answer.classList.contains('faq-answer')) {
+            if (answer.classList.contains('open')) {
+                answer.classList.remove('open');
+            } else {
+                var container = el.closest('.page') || el.closest('.tab-content');
+                if (container) {
+                    var allAnswers = container.querySelectorAll('.faq-answer');
+                    for (var i = 0; i < allAnswers.length; i++) {
+                        allAnswers[i].classList.remove('open');
+                    }
+                }
+                answer.classList.add('open');
+            }
+        }
+    }
+
+    function switchTab(btn, tabId) {
+        var container = btn.closest('.tabs-container');
+        if (!container) return;
+        var btns = container.querySelectorAll('.tab-btn');
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].classList.remove('active');
+        }
+        btn.classList.add('active');
+        var contents = container.querySelectorAll('.tab-content');
+        for (var j = 0; j < contents.length; j++) {
+            contents[j].classList.remove('active');
+        }
+        var target = document.getElementById(tabId);
+        if (target) {
+            target.classList.add('active');
+        }
+    }
+</script>
+
+</body>
+</html>

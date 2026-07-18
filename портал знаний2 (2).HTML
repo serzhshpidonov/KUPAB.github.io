@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Портал знаний — Развитие персонала</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+            background: #f0f4f8;
+            color: #1a2a3a;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+            font-size: 18px;
+        }
+        .main-header {
+            background: linear-gradient(135deg, #1a3a6b 0%, #2a5a9b 100%);
+            color: #fff;
+            padding: 20px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .main-header h1 {
+            font-size: clamp(1.4rem, 5vw, 2.2rem);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .main-header h1 span {
+            color: #ffd700;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px 20px 80px;
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 22px;
+            margin: 24px 0 36px;
+        }
+        .menu-card {
+            background: linear-gradient(145deg, #ffffff, #f5f8fe);
+            border-radius: 18px;
+            padding: 36px 24px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(26, 58, 107, 0.10);
+            border-left: 8px solid #1a3a6b;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(26, 58, 107, 0.18);
+            border-left-color: #c0392b;
+        }
+        .menu-card:active {
+            transform: scale(0.97);
+        }
+        .menu-card .icon {
+            font-size: 3.6rem;
+            margin-bottom: 12px;
+        }
+        .menu-card h2 {
+            font-size: clamp(1.3rem, 4vw, 1.7rem);
+            color: #1a3a6b;
+            font-weight: 700;
+        }
+        .menu-card p {
+            font-size: clamp(0.95rem, 2.8vw, 1.1rem);
+            color: #5a6a7a;
+            margin-top: 8px;
+        }
+        .submenu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 18px;
+            margin: 22px 0 30px;
+        }
+        .submenu-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 26px 16px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border-bottom: 5px solid #2a5a9b;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .submenu-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(26, 58, 107, 0.12);
+            border-bottom-color: #c0392b;
+        }
+        .submenu-card .sicon {
+            font-size: 2.8rem;
+        }
+        .submenu-card h3 {
+            font-size: clamp(1.1rem, 3.2vw, 1.4rem);
+            color: #1a3a6b;
+            margin-top: 8px;
+        }
+        .page {
+            display: none;
+        }
+        .page.active-page {
+            display: block;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #1a3a6b;
+            font-weight: 600;
+            font-size: clamp(1rem, 3vw, 1.15rem);
+            cursor: pointer;
+            margin-bottom: 16px;
+            padding: 8px 18px;
+            border-radius: 24px;
+            background: #e8edf4;
+            transition: background 0.2s;
+            border: none;
+        }
+        .back-link:hover {
+            background: #d4dff0;
+        }
+        .nav-controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 14px;
+            margin: 30px 0 10px;
+        }
+        .nav-btn {
+            background: linear-gradient(135deg, #1a3a6b, #2a5a9b);
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            padding: 14px 28px;
+            font-size: clamp(0.95rem, 2.8vw, 1.15rem);
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(26,58,107,0.25);
+            transition: all 0.25s ease;
+        }
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(26,58,107,0.35);
+        }
+        .nav-btn.secondary {
+            background: #e8edf4;
+            color: #1a3a6b;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .nav-btn.secondary:hover {
+            background: #d4dff0;
+        }
+        h2.section-title {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            color: #1a3a6b;
+            margin-bottom: 8px;
+        }
+        p.section-desc {
+            color: #5a6a7a;
+            margin-bottom: 20px;
+            font-size: clamp(1rem, 3vw, 1.15rem);
+        }
+        .tabs-container {
+            margin: 24px 0 14px;
+        }
+        .tabs-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            border-bottom: 3px solid #1a3a6b;
+            padding-bottom: 2px;
+        }
+        .tab-btn {
+            padding: 12px 22px;
+            background: #e8edf4;
+            border: none;
+            border-radius: 12px 12px 0 0;
+            font-size: clamp(0.9rem, 2.6vw, 1.05rem);
+            font-weight: 600;
+            color: #1a3a6b;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn:hover {
+            background: #d4dff0;
+        }
+        .tab-btn.active {
+            background: #1a3a6b;
+            color: #fff;
+        }
+        .tab-content {
+            display: none;
+            background: #fff;
+            border-radius: 0 0 14px 14px;
+            padding: 20px 22px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+            border: 1px solid #dde4ee;
+            border-top: none;
+            font-size: clamp(0.95rem, 2.8vw, 1.1rem);
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .faq-section {
+            margin: 12px 0;
+        }
+        .faq-item {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            background: #fafafa;
+        }
+        .faq-question {
+            display: block;
+            padding: 16px 20px;
+            font-size: clamp(1rem, 3.5vw, 1.2rem);
+            font-weight: 700;
+            color: #1a3a6b;
+            cursor: pointer;
+            background: linear-gradient(135deg, #e8f0fe, #f5f9ff);
+            border-left: 6px solid #1a3a6b;
+            transition: all 0.25s ease;
+            user-select: none;
+        }
+        .faq-question:hover {
+            background: linear-gradient(135deg, #d4e3fc, #e8f0fe);
+            border-left-color: #c0392b;
+        }
+        .faq-answer {
+            display: none;
+            padding: 18px 20px;
+            background: #ffffff;
+            border-top: 1px solid #ddd;
+            font-size: clamp(0.95rem, 3vw, 1.1rem);
+            line-height: 1.7;
+        }
+        .faq-answer.open {
+            display: block;
+        }
+
+        /* ========== ИСПРАВЛЕННЫЕ СТИЛИ ТАБЛИЦ ========== */
+        .faq-answer table,
+        .tab-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+            word-break: break-word;
+            overflow-wrap: break-word;
+            table-layout: fixed;
+        }
+
+        .faq-answer table th,
+        .tab-content table th {
+            background: #1a3a6b;
+            color: #fff;
+            padding: 8px 10px;
+            border: 1px solid #aaa;
+            text-align: center;
+            font-size: clamp(0.75rem, 2.4vw, 0.9rem);
+        }
+
+        .faq-answer table td,
+        .tab-content table td {
+            padding: 7px 10px;
+            border: 1px solid #ccc;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            vertical-align: top;
+            line-height: 1.5;
+        }
+
+        /* Специально для 3-колоночных таблиц (Параметр | Норма | Влияние) */
+        .tab-content table td:last-child,
+        .faq-answer table td:last-child {
+            font-size: clamp(0.75rem, 2.4vw, 0.9rem);
+            line-height: 1.6;
+        }
+
+        .faq-answer ul, .faq-answer ol {
+            padding-left: 26px;
+            margin: 8px 0;
+        }
+        .faq-answer li {
+            margin-bottom: 4px;
+        }
+        .scroll-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #1a3a6b;
+            color: #fff;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 999;
+            border: none;
+            opacity: 0.85;
+        }
+        .scroll-top:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        /* ========== МОБИЛЬНАЯ АДАПТАЦИЯ ========== */
+        <span style="color: hsl(var(--primary)); font-weight: 500;">@media</span> (max-width: 600px) {
+            body { font-size: 16px; }
+            .main-header { padding: 14px 16px; }
+            .container { padding: 16px 12px 70px; }
+            .menu-grid { grid-template-columns: 1fr; gap: 14px; }
+            .submenu-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .tab-btn { padding: 10px 14px; font-size: 0.85rem; }
+            .nav-btn { padding: 12px 18px; font-size: 0.85rem; }
+            .menu-card { padding: 28px 18px; }
+            .submenu-card { padding: 20px 12px; }
+
+            /* Компактные таблицы на мобильных */
+            .faq-answer table,
+            .tab-content table {
+                font-size: 0.78rem;
+            }
+            .faq-answer table th,
+            .faq-answer table td,
+            .tab-content table th,
+            .tab-content table td {
+                padding: 5px 6px;
+                font-size: 0.72rem;
+            }
+            .tab-content table td:last-child,
+            .faq-answer table td:last-child {
+                font-size: 0.72rem;
+            }
+        }
+
+        <span style="color: hsl(var(--primary)); font-weight: 500;">@media</span> (max-width: 400px) {
+            .submenu-grid { grid-template-columns: 1fr; }
+            .faq-answer table,
+            .tab-content table {
+                font-size: 0.7rem;
+            }
+            .faq-answer table th,
+            .faq-answer table td,
+            .tab-content table th,
+            .tab-content table td {
+                padding: 4px 5px;
+                font-size: 0.65rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<header class="main-header">
+    <h1>📚 Портал <span>Знаний</span></h1>
+</header>
+<div class="container" id="mainContainer">
+    <!-- ===== ГЛАВНАЯ ===== -->
+    <div class="page active-page" id="page-main">
+        <h2 class="section-title">📖 Добро пожаловать в портал знаний!</h2>
+        <p class="section-desc">Выберите раздел для изучения материалов</p>
+        <div class="menu-grid">
+            <div class="menu-card" onclick="showPage('staff')">
+                <div class="icon">👥</div>
+                <h2>Развитие персонала</h2>
+                <p>Обучение, подготовка, повышение квалификации</p>
+            </div>
+        </div>
+    </div>
+    <!-- ===== РАЗВИТИЕ ПЕРСОНАЛА ===== -->
+    <div class="page" id="page-staff">
+        <button class="back-link" onclick="showPage('main')">← На главную</button>
+        <h2 class="section-title">👥 Развитие персонала</h2>
+        <p class="section-desc">Выберите технологический блок</p>
+        <div class="submenu-grid">
+            <div class="submenu-card" onclick="showPage('prombez')">
+                <div class="sicon">⚠️</div>
+                <h3>Промбез</h3>
+            </div>
+            <div class="submenu-card" onclick="showPage('hydro')">
+                <div class="sicon">💧</div>
+                <h3>Гидроочистка</h3>
+            </div>
+            <div class="submenu-card" onclick="showPage('reform')">
+                <div class="sicon">🔥</div>
+                <h3>Риформинг</h3>
+            </div>
+            <div class="submenu-card" onclick="showPage('isomer')">
+                <div class="sicon">⚗️</div>
+                <h3>Изомеризация</h3>
+            </div>
+        </div>
+    </div>
+    <!-- ===== ПРОМБЕЗ ===== -->
+    <div class="page" id="page-prombez">
+        <button class="back-link" onclick="showPage('staff')">← Развитие персонала</button>
+        <h2 class="section-title">⚠️ Промышленная безопасность</h2>
+        <p class="section-desc">Материалы по промышленной безопасности</p>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">1. Основные требования промбезопасности на установке</div>
+            <div class="faq-answer">
+                <table>
+                    <tr><th>Требование</th><th>Описание</th></tr>
+                    <tr><td>Наряд-допуск</td><td>Обязательное оформление на все виды работ</td></tr>
+                    <tr><td>СИЗ</td><td>Каска, очки, перчатки, спецобувь</td></tr>
+                    <tr><td>Пожарная безопасность</td><td>Запрет открытого огня, средства пожаротушения</td></tr>
+                </table>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">2. Действия при аварийной ситуации</div>
+            <div class="faq-answer">
+                <ul>
+                    <li>Прекратить работы, покинуть опасную зону</li>
+                    <li>Сообщить руководителю</li>
+                    <li>Применить первичные средства пожаротушения</li>
+                </ul>
+            </div>
+        </div>
+        <div class="nav-controls">
+            <button class="nav-btn" onclick="showPage('staff')">◀ Назад</button>
+            <button class="nav-btn secondary" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆ Вверх</button>
+        </div>
+    </div>
+    <!-- ===== ГИДРООЧИСТКА ===== -->
+    <div class="page" id="page-hydro">
+        <button class="back-link" onclick="showPage('staff')">← Развитие персонала</button>
+        <h2 class="section-title">💧 Гидроочистка</h2>
+        <div class="tabs-container">
+            <div class="tabs-nav">
+                <button class="tab-btn active" onclick="switchTab(this, 'hydro-qa')">Вопросы и ответы</button>
+                <button class="tab-btn" onclick="switchTab(this, 'hydro-norms')">Нормы</button>
+                <button class="tab-btn" onclick="switchTab(this, 'hydro-block')">Блокировки</button>
+                <button class="tab-btn" onclick="switchTab(this, 'hydro-scheme')">Схемы</button>
+            </div>
+            <div class="tab-content active" id="hydro-qa">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">1. Назначение гидроочистки</div>
+                    <div class="faq-answer">Гидроочистка предназначена для удаления сернистых, азотистых и кислородсодержащих соединений из нефтяных фракций.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">2. Катализатор гидроочистки</div>
+                    <div class="faq-answer">Используются алюмокобальтмолибденовые (АКМ) и алюмоникельмолибденовые (АНМ) катализаторы.</div>
+                </div>
+            </div>
+            <div class="tab-content" id="hydro-norms">
+                <table>
+                    <tr><th>Параметр</th><th>Норма</th></tr>
+                    <tr><td>Температура в реакторе</td><td>320–400 °C</td></tr>
+                    <tr><td>Давление</td><td>2,5–4,0 МПа</td></tr>
+                    <tr><td>Содержание серы на выходе</td><td>≤ 10 ppm</td></tr>
+                </table>
+            </div>
+            <div class="tab-content" id="hydro-block">
+                <ul>
+                    <li>Температура > 420 °C — аварийный сброс</li>
+                    <li>Давление > 4,5 МПа — ППК</li>
+                    <li>Превышение H₂S — остановка подачи сырья</li>
+                </ul>
+            </div>
+            <div class="tab-content" id="hydro-scheme">
+                <p><strong>Принципиальная схема:</strong></p>
+                <ul>
+                    <li>Сырьё → теплообменник → печь → реактор → сепаратор → стабилизатор</li>
+                    <li>ВСГ подаётся в смеситель перед печью</li>
+                </ul>
+            </div>
+        </div>
+        <div class="nav-controls">
+            <button class="nav-btn" onclick="showPage('staff')">◀ Назад</button>
+            <button class="nav-btn secondary" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆ Вверх</button>
+        </div>
+    </div>
+    <!-- ===== РИФОРМИНГ ===== -->
+    <div class="page" id="page-reform">
+        <button class="back-link" onclick="showPage('staff')">← Развитие персонала</button>
+        <h2 class="section-title">🔥 Риформинг</h2>
+        <div class="tabs-container">
+            <div class="tabs-nav">
+                <button class="tab-btn active" onclick="switchTab(this, 'reform-qa')">Вопросы и ответы</button>
+                <button class="tab-btn" onclick="switchTab(this, 'reform-norms')">Нормы</button>
+                <button class="tab-btn" onclick="switchTab(this, 'reform-block')">Блокировки</button>
+                <button class="tab-btn" onclick="switchTab(this, 'reform-scheme')">Схемы</button>
+            </div>
+            <div class="tab-content active" id="reform-qa">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">1. Что такое риформинг?</div>
+                    <div class="faq-answer">Каталитический процесс повышения октанового числа бензиновых фракций.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">2. Типы катализаторов</div>
+                    <div class="faq-answer">Платинорениевые, платиноиридиевые, платинооловянные.</div>
+                </div>
+            </div>
+            <div class="tab-content" id="reform-norms">
+                <table>
+                    <tr><th>Параметр</th><th>Норма</th></tr>
+                    <tr><td>Температура</td><td>480–530 °C</td></tr>
+                    <tr><td>Давление</td><td>0,3–1,5 МПа</td></tr>
+                    <tr><td>Октановое число</td><td>95–102 ИОЧ</td></tr>
+                </table>
+            </div>
+            <div class="tab-content" id="reform-block">
+                <ul>
+                    <li>Температура > 550 °C — аварийная остановка</li>
+                    <li>Снижение давления ВСГ — отключение печи</li>
+                    <li>Превышение перепада давления на реакторе</li>
+                </ul>
+            </div>
+            <div class="tab-content" id="reform-scheme">
+                <p><strong>Схема блока риформинга:</strong></p>
+                <ul>
+                    <li>Сырьё → печь → реактор 1 → печь → реактор 2 → печь → реактор 3 → сепарация</li>
+                </ul>
+            </div>
+        </div>
+        <div class="nav-controls">
+            <button class="nav-btn" onclick="showPage('staff')">◀ Назад</button>
+            <button class="nav-btn secondary" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆ Вверх</button>
+        </div>
+    </div>
+    <!-- ===== ИЗОМЕРИЗАЦИЯ ===== -->
+    <div class="page" id="page-isomer">
+        <button class="back-link" onclick="showPage('staff')">← Развитие персонала</button>
+        <h2 class="section-title">⚗️ Изомеризация</h2>
+        <p class="section-desc">Выберите оборудование для изучения</p>
+        <!-- Карточка Колонна К-203 -->
+        <div class="submenu-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
+            <div class="submenu-card" onclick="showPage('k203')" style="border-bottom-color: #c0392b;">
+                <div class="sicon">🏭</div>
+                <h3>Колонна К‑203</h3>
+                <p style="font-size:0.85rem; color:#5a6a7a; margin-top:4px;">Деизогексанизация</p>
+            </div>
+        </div>
+        <!-- Стандартные вкладки изомеризации -->
+        <div class="tabs-container">
+            <div class="tabs-nav">
+                <button class="tab-btn active" onclick="switchTab(this, 'isomer-qa')">Вопросы и ответы</button>
+                <button class="tab-btn" onclick="switchTab(this, 'isomer-norms')">Нормы</button>
+                <button class="tab-btn" onclick="switchTab(this, 'isomer-block')">Блокировки</button>
+                <button class="tab-btn" onclick="switchTab(this, 'isomer-scheme')">Схемы</button>
+            </div>
+            <div class="tab-content active" id="isomer-qa">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">1. Цель изомеризации</div>
+                    <div class="faq-answer">Превращение нормальных парафинов в изопарафины для повышения октанового числа.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">2. Катализатор изомеризации</div>
+                    <div class="faq-answer">Платина на оксидно-циркониевой основе (СИ-2Б), цеолитные катализаторы.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">3. Каталитические яды</div>
+                    <div class="faq-answer">Сера, азот, вода, CO, CO₂, тяжёлые металлы (Pb, As).</div>
+                </div>
+            </div>
+            <div class="tab-content" id="isomer-norms">
+                <table>
+                    <tr><th>Параметр</th><th>Норма</th></tr>
+                    <tr><td>Температура в реакторе</td><td>110–165 °C</td></tr>
+                    <tr><td>Давление</td><td>3,5–4,2 МПа</td></tr>
+                    <tr><td>H₂:УВ</td><td>≥ 0,05:1</td></tr>
+                    <tr><td>Влажность сырья</td><td>≤ 1,0 ppm</td></tr>
+                </table>
+            </div>
+            <div class="tab-content" id="isomer-block">
+                <ul>
+                    <li>Температура ≥ 221 °C — закрытие отсечных клапанов</li>
+                    <li>Расход сырья < 31,5 м³/ч — остановка</li>
+                    <li>Расход ВСГ < 720 нм³/ч — блокировка</li>
+                    <li>Влажность > 1,0 ppm — автоперевод на регенерацию</li>
+                </ul>
+            </div>
+            <div class="tab-content" id="isomer-scheme">
+                <p><strong>Схема реакторного блока:</strong></p>
+                <ul>
+                    <li>Сырьё → осушка → смешение с ВСГ → теплообменники → Р-201 → Р-202 → Р-203 → стабилизация</li>
+                </ul>
+            </div>
+        </div>
+        <div class="nav-controls">
+            <button class="nav-btn" onclick="showPage('staff')">◀ Назад</button>
+            <button class="nav-btn secondary" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆ Вверх</button>
+        </div>
+    </div>
+    <!-- ===== СТРАНИЦА КОЛОННЫ К-203 (8 вкладок) ===== -->
+    <div class="page" id="page-k203">
+        <button class="back-link" onclick="showPage('isomer')">← Изомеризация</button>
+        <h2 class="section-title">🏭 Колонна К‑203</h2>
+        <p class="section-desc">Деизогексанизация — полный технический справочник</p>
+        <div class="tabs-container">
+            <div class="tabs-nav">
+                <button class="tab-btn active" onclick="switchTab(this, 'k203-construction')">🔧 Конструкция</button>
+                <button class="tab-btn" onclick="switchTab(this, 'k203-flowchart')">📊 Схема</button>
+                <button class="tab-btn" onclick="switchTab(this, 'k203-specs')">📏 Характеристики</button>
+                <button class="tab-btn" onclick="switchTab(this, 'k203-norms')">📐 Нормы</button>
+                <button class="tab-btn" onclick="switchTab(this, 'k203-alarms')">🔔 Сигнализации</button>
+                <button class="tab-btn" onclick="switchTab(this, 'k203-startup')">▶️ Пуск</button>
+                <button class="tab-btn" onclick="switchTab(this, 'k203-shutdown')">⏹️ Остановка</button>
+                <button class="tab-btn" onclick="switchTab(this, 'k203-circulation')">🔄 Циркуляция</button>
+            </div>
+            <!-- Конструкция -->
+            <div class="tab-content active" id="k203-construction">
+                <h3 style="color:#1a3a6b; margin-bottom:12px;">🔧 Конструкция колонны К‑203</h3>
+                <p>Колонна деизогексанизации (ДИГ) К-203 является завершающим этапом разделения продуктов изомеризации. Она разделяет стабильный изомеризат, поступающий из колонны стабилизации К-202, на четыре целевых потока.</p>
+                <p><strong>Тип аппарата:</strong> Ректификационная колонна, оснащенная <strong>147-ю многосливными тарелками</strong>.</p>
+                <p><strong>Питание:</strong> Кубовый продукт колонны стабилизации (стабильный изомеризат) подается на <strong>82-ю тарелку</strong>.</p>
+                <p><strong>Целевые продукты и точки отбора:</strong></p>
+                <ul>
+                    <li><strong>Верхний продукт</strong> (Пентан-изопентановая фракция) — отбирается с верха колонны</li>
+                    <li><strong>Верхний боковой погон</strong> (Лёгкий изомеризат) — отбирается ниже <strong>33-й тарелки</strong></li>
+                    <li><strong>Нижний боковой погон</strong> (Смесь метилпентанов и метилциклопентана) — отбирается под <strong>108-й тарелкой</strong></li>
+                    <li><strong>Кубовый продукт</strong> (Тяжёлый изомеризат/фракция ц-С6+) — выводится из куба</li>
+                </ul>
+                <p><strong>Основные элементы обвязки:</strong></p>
+                <ul>
+                    <li>Ребойлер Т-210 — подвод тепла в куб колонны</li>
+                    <li>Конденсатор ХВ-206/А÷Р — конденсация паров верха</li>
+                    <li>Насос Н-206/1(2) — подача орошения (флегмы)</li>
+                    <li>Насос Н-207...-207/1(2) — откачка верхнего бокового погона</li>
+                    <li>Насос Н-208/1(2) — откачка нижнего бокового погона</li>
+                    <li>Насос Н-209/1(2) — откачка кубового продукта</li>
+                </ul>
+            </div>
+            <!-- Технологическая схема -->
+            <div class="tab-content" id="k203-flowchart">
+                <h3 style="color:#1a3a6b; margin-bottom:12px;">📊 Технологическая схема обвязки К‑203</h3>
+                <p>Принципиальная технологическая схема отображает движение материальных потоков через колонну деизогексанизации.</p>
+                <p><strong>Основные потоки:</strong></p>
+                <ul>
+                    <li><strong>Сырьё:</strong> Кубовый продукт К-202 → тр. пр. Т-208 → 320UZV-7540 → 320FV-3024 → <strong>К-203 (82-я тарелка)</strong></li>
+                    <li><strong>Верхний продукт:</strong> Верх колонны → конденсатор ХВ-206 → ресивер Е-206 → частично возврат (орошение) / избыток → Е-201 или парк</li>
+                    <li><strong>Верхний боковой погон:</strong> К-203 (ниже 33-й тарелки) → 320UZV-7155 → Н-207/1(2) → 320UZV-7156 → ХВ-207 → Х-204 → 320FV-3038 → 360UZV-7543 → парк</li>
+                    <li><strong>Нижний боковой погон:</strong> К-203 (под 108-й тарелкой) → 320UZV-7153 → Н-208/1(2) → 320UZV-7154 → 320FV-3036 → 360UZV-7545 → трубное пространство Т-201 (смешение с сырьём)</li>
+                    <li><strong>Кубовый продукт:</strong> Куб К-203 → 320UZV-7151 → Н-209/1(2) → 320UZV-7152 → ХВ-205 → Х-203 → 360FV-3035 → 360UZV-7542 → парк</li>
+                    <li><strong>Циркуляция куба:</strong> К-203 → 320UZV-7151 → Н-209/1(2) → 320UZV-7152 → 320FV-3034 → К-203 (через байпас или Т-210)</li>
+                    <li><strong>Орошение:</strong> Е-206 → 320UZV-7157 → Н-206/1(2) → 320UZV-7158 → 320FV-3040 → К-203</li>
+                </ul>
+                <p><strong>Целевые продукты:</strong></p>
+                <ul>
+                    <li>Верхний продукт — Пентан-изопентановая фракция</li>
+                    <li>Верхний боковой погон — Лёгкий изомеризат (основной компонент товарного бензина)</li>
+                    <li>Нижний боковой погон — Смесь метилпентанов и метилциклопентана</li>
+                    <li>Кубовый продукт — Тяжёлый изомеризат / фракция ц-С6+</li>
+                </ul>
+            </div>
+            <!-- Характеристики оборудования -->
+            <div class="tab-content" id="k203-specs">
+                <h3 style="color:#1a3a6b; margin-bottom:12px;">📏 Характеристики оборудования в обвязке К‑203</h3>
+                <p><strong>Колонна К‑203:</strong></p>
+                <ul>
+                    <li>Тип — ректификационная колонна</li>
+                    <li>Количество тарелок — 147 шт.</li>
+                    <li>Тип тарелок — многосливные</li>
+                    <li>Питание — на 82-ю тарелку</li>
+                </ul>
+                <p><strong>Оборудование обвязки:</strong></p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Оборудование</th>
+                            <th>Назначение</th>
+                            <th>Ключевые параметры</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ребойлер Т-210</td>
+                            <td>Подвод тепла в куб колонны</td>
+                            <td>Пар СД, давление ≤ 0,835 МПа</td>
+                        </tr>
+                        <tr>
+                            <td>Конденсатор ХВ-206/А÷Р</td>
+                            <td>Конденсация паров верха колонны</td>
+                            <td>Охлаждение воздухом до 44–59 °С</td>
+                        </tr>
+                        <tr>
+                            <td>Насос Н-206/1(2)</td>
+                            <td>Подача орошения (флегмы)</td>
+                            <td>Давление нагнетания 0,55–0,65 МПа</td>
+                        </tr>
+                        <tr>
+                            <td>Насос Н-207/1(2)</td>
+                            <td>Откачка верхнего бокового погона</td>
+                            <td>Давление нагнетания 2,02–2,1 МПа</td>
+                        </tr>
+                        <tr>
+                            <td>Насос Н-208/1(2)</td>
+                            <td>Откачка нижнего бокового погона</td>
+                            <td>Давление нагнетания 1,92–2,02 МПа</td>
+                        </tr>
+                        <tr>
+                            <td>Насос Н-209/1(2)</td>
+                            <td>Откачка кубового продукта</td>
+                            <td>Давление нагнетания 0,98–1,18 МПа</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Нормы режима -->
+            <div class="tab-content" id="k203-norms">
+                <h3 style="color:#1a3a6b; margin-bottom:12px;">📐 Нормы технологического режима и влияние на качество</h3>
+                <p><strong>Технологические параметры работы колонны К‑203:</strong></p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Параметр</th>
+                            <th>Норма</th>
+                            <th>Влияние на качество продукта</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Давление верха</td>
+                            <td>Не более 0,237 МПа</td>
+                            <td>Определяет чёткость разделения. Низкое давление улучшает разделение лёгких и тяжёлых фракций.</td>
+                        </tr>
+                        <tr>
+                            <td>Температура верха</td>
+                            <td>63 ÷ 68 °С</td>
+                            <td>Контролирует содержание целевых компонентов в дистилляте. Влияет на расход орошения.</td>
+                        </tr>
+                        <tr>
+                            <td>Температура куба</td>
+                            <td>130 ÷ 138 °С</td>
+                            <td>Обеспечивает испарение тяжёлого остатка (ц-С6+). Избыточный нагрев ведёт к термическому разложению.</td>
+                        </tr>
+                        <tr>
+                            <td>Уровень в кубе</td>
+                            <td>5 ÷ 26 %</td>
+                            <td>Стабильность работы насоса Н-209 и вывод кубового продукта. Низкий уровень — кавитация насоса.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Флегмовое число:</strong> Определяется расходом орошения. Влияет на чёткость разделения и качество дистиллята.</p>
+                <p><em>Контроль параметров осуществляется по приборам КИПиА. Отклонения от норм корректируются регулирующими клапанами.</em></p>
+            </div>
+            <!-- Сигнализации и блокировки -->
+            <div class="tab-content" id="k203-alarms">
+                <h3 style="color:#1a3a6b; margin-bottom:12px;">🔔 Сигнализации и блокировки К‑203</h3>
+                <p>Система автоматики обеспечивает защиту оборудования от аварийных режимов.</p>
+                <p><strong>Сигнализации (предупреждения):</strong></p>
+                <ul>
+                    <li>Превышение давления верха колонны > 0,237 МПа (поз. 320-PIRСАH-2049)</li>
+                    <li>Превышение давления по дублирующим приборам > 1,096 МПа</li>
+                    <li>Превышение перепада давления по колонне > 122 кПа (засорение)</li>
+                    <li>Снижение уровня в кубе < 5 % или > 26 % (угроза кавитации или уноса жидкости)</li>
+                    <li>Снижение расхода орошения < 150 м³/ч</li>
+                    <li>Снижение расхода нижнего бокового погона < 4,7 м³/ч</li>
+                    <li>Снижение расхода верхнего бокового погона < 15,9 м³/ч</li>
+                </ul>
+                <p><strong>Блокировки (автоматические защиты):</strong></p>
+                <ul>
+                    <li>При достижении критического давления (> 1,2 МПа) — срабатывают предохранительные клапаны <strong>ППК-216/1(2)</strong></li>
+                    <li>При достижении давления > 1,131 МПа по двум из трёх приборов — закрывается клапан-отсекатель пара на ребойлер Т-210 (поз. 320-UZV-7023)</li>
+                    <li><strong>Остановка насосов</strong> при перегреве подшипников или отсутствии затворной жидкости:
+                        <ul>
+                            <li>Н-209: при уровне куба < 2 %</li>
+                            <li>Н-208: при уровне на приёме < 37 %</li>
+                            <li>Н-206: при уровне в ресивере Е-206 < 30 %</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- Порядок пуска -->
+            <div class="tab-content" id="k203-startup">
+                <h3 style="color:#1a3a6b; margin-bottom:12px;">▶️ Порядок пуска контура К‑203</h3>
+                <p><strong>1. Приём сырья и настройка холодной циркуляции</strong></p>
+                <p><em>Система заполняется жидкостью и промывается без подвода тепла в куб.</em></p>
+                <ol>
+                    <li><strong>Подача сырья:</strong> Открыть клапан-отсекатель поз. 320-UZV-7540 на линии подачи кубового продукта из К-202 в К-203. Схема: К-202 → тр. пр. Т-208 → 320UZV-7540 → 320FV-3024 → К-203. Заполнить колонну стабильным изомеризатом.</li>
+                    <li><strong>Настройка холодной циркуляции куба:</strong> Собрать схему циркуляции: К-203 → 320UZV-7151 → Н-209/1(2) → 320UZV-7152 → 320FV-3034 → К-203. Запустить насос Н-209/1(2). Стабилизировать расход ≥ 4,7 м³/ч. Дренировать низколежащие точки до отсутствия влаги.</li>
+                </ol>
+                <p><strong>2. Вывод на горячую циркуляцию</strong></p>
+                <p><em>Переход к рабочему температурному профилю с подводом тепла. Продукты не выводятся в парк (замкнутый цикл).</em></p>
+                <ol>
+                    <li><strong>Подвод тепла:</strong> Открыть клапан-отсекатель поз. 320-UZV-7023 на линии подачи пара СД в ребойлер Т-210. Плавно, со скоростью не более 25 °С/ч, поднять температуру куба до 130–138 °С (поз. 320-ТIR-1078).</li>
+                    <li><strong>Настройка верха (орошение):</strong> Запустить насос Н-206/1(2). Схема: Е-206 → 320UZV-7157 → Н-206/1(2) → 320UZV-7158 → 320FV-3040 → К-203. Стабилизировать расход орошения 150–250 м³/ч.</li>
+                </ol>
+                <p><em>Примечание: все боковые погоны и кубовый продукт возвращаются обратно в колонну. Избыток верха — в Е-201.</em></p>
+                <p><strong>3. Вывод на нормальный технологический режим</strong></p>
+                <ol>
+                    <li><strong>Вывод верхнего бокового погона:</strong> Открыть 360-UZV-7543. Схема: К-203 → Н-207/1(2) → ХВ-207 → Х-204 → 320FV-3038 → 360UZV-7543 → парк. Стабилизировать расход.</li>
+                    <li><strong>Вывод нижнего бокового погона:</strong> Открыть 360-UZV-7545. Схема: К-203 → Н-208/1(2) → 320FV-3036 → 360UZV-7545 → Т-201. Стабилизировать расход.</li>
+                    <li><strong>Вывод кубового продукта:</strong> Открыть 360-UZV-7542. Схема: К-203 → Н-209/1(2) → ХВ-205 → Х-203 → 360FV-3035 → 360UZV-7542 → парк. Стабилизировать расход.</li>
+                    <li><strong>Финальная стабилизация:</strong> Контроль температуры верха (63–68 °С) и куба (130–138 °С). Перевести контуры в автоматический режим. Отбор проб (АР-216, АР-218) для лабораторного анализа.</li>
+                </ol>
+            </div>
+            <!-- Остановка -->
+            <div class="tab-content" id="k203-shutdown">
+                <h3 style="color:#1a3a6b; margin-bottom:12px;">⏹️ Остановка колонны К‑203</h3>
+                <p><strong>1. Краткосрочная остановка (до 72 часов)</strong></p>
+                <p><em>Применяется для кратковременных перерывов. Задача — снизить тепловую нагрузку и стабилизировать систему.</em></p>
+                <ol>
+                    <li><strong>Снижение тепловой нагрузки:</strong> Плавно прикрыть клапан поз. 320FV-3033 на линии вывода конденсата пара из ребойлера Т-210. Снизить температуру куба до нижней границы нормы (~130 °С), поддерживая циркуляцию.</li>
+                    <li><strong>Снижение расхода сырья:</strong> Плавно прикрыть клапан поз. 320FV-3024 на линии подачи стабильного изомеризата из К-202 в К-203 до минимального расхода для поддержания циркуляции.</li>
+                    <li><strong>Стабилизация:</strong> Поддерживать параметры (давление, уровень) в рабочих диапазонах. Система остаётся под давлением и готова к быстрому пуску.</li>
+                </ol>
+                <p><strong>2. Долговременная остановка (более 72 часов)</strong></p>
+                <p><em>Требует полной осушки системы и консервации для предотвращения коррозии и закоксовывания.</em></p>
+                <ol>
+                    <li><strong>Охлаждение и сброс давления:</strong> Полностью прекратить подачу пара в ребойлер Т-210 (закрыть 320UZV-7023). Сбросить давление до атмосферного через факельную систему (320UZV-7627).</li>
+                    <li><strong>Продувка азотом:</strong> Подать осушенный азот для вытеснения паров углеводородов и воздуха. Повторять до снижения содержания горючих газов до безопасного уровня.</li>
+                    <li><strong>Дренирование:</strong> Откачать жидкости из всех аппаратов (ресивер Е-206, куб К-203) до минимальных уровней. Оставить систему под небольшим избыточным давлением азота (~0,05 МПа) для предотвращения подсоса воздуха.</li>
+                </ol>
+            </div>
+            <!-- Циркуляция -->
+            <div class="tab-content" id="k203-circulation">
+                <h3 style="color:#1a3a6b; margin-bottom:12px;">🔄 Перевод К‑203 в режимы циркуляции</h3>
+                <p>Эти режимы используются при пусконаладочных работах или изменении схемы потоков.</p>
+                <p><strong>Перевод в режим «холодной» циркуляции (без нагрева куба)</strong></p>
+                <p><em>Цель:</em> Промывка трубопроводов, вытеснение воздуха, заполнение системы жидкостью без подвода тепла.</p>
+                <ol>
+                    <li>Остановить подачу пара в Т-210.</li>
+                    <li>Собрать схему циркуляции куба: <strong>К-203 → Н-209/1(2) → байпас (или линия мин. расхода) → К-203</strong>.</li>
+                    <li>Запустить насос Н-209/1(2) на минимальный расход.</li>
+                </ol>
+                <p><strong>Перевод в режим «горячей» циркуляции (с нагревом куба)</strong></p>
+                <p><em>Цель:</em> Вывод колонны на температурный режим, удаление влаги, подготовка к подаче целевого потока. Продукты возвращаются обратно в колонну (замкнутый цикл).</p>
+                <ol>
+                    <li>Собрать схему циркуляции куба через ребойлер: <strong>К-203 → Н-209/1(2) → Т-210 → К-203</strong>.</li>
+                    <li>Подать пар СД в Т-210 и поднять температуру в кубе до рабочего диапазона (130–138 °C).</li>
+                    <li>Запустить насосы боковых погонов и орошения, настроив возврат всех потоков обратно в колонну:
+                        <ul>
+                            <li><strong>Верхний боковой погон:</strong> К-203 → Н-207/1(2) → К-203</li>
+                            <li><strong>Нижний боковой погон:</strong> К-203 → Н-208/1(2) → К-203</li>
+                            <li><strong>Орошение:</strong> Е-206 → Н-206/1(2) → К-203</li>
+                            <li><strong>Кубовый продукт:</strong> К-203 → Н-209/1(2) → Т-210 → К-203</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="nav-controls">
+            <button class="nav-btn" onclick="showPage('isomer')">◀ Назад</button>
+            <button class="nav-btn secondary" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆ Вверх</button>
+        </div>
+    </div>
+</div>
+<button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆</button>
+<script>
+    function showPage(pageId) {
+        var pages = document.querySelectorAll('.page');
+        for (var i = 0; i < pages.length; i++) {
+            pages[i].classList.remove('active-page');
+        }
+        var target = document.getElementById('page-' + pageId);
+        if (target) {
+            target.classList.add('active-page');
+        }
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+    function toggleFaq(el) {
+        var answer = el.nextElementSibling;
+        if (answer && answer.classList.contains('faq-answer')) {
+            if (answer.classList.contains('open')) {
+                answer.classList.remove('open');
+            } else {
+                var container = el.closest('.page') || el.closest('.tab-content');
+                if (container) {
+                    var allAnswers = container.querySelectorAll('.faq-answer');
+                    for (var i = 0; i < allAnswers.length; i++) {
+                        allAnswers[i].classList.remove('open');
+                    }
+                }
+                answer.classList.add('open');
+            }
+        }
+    }
+    function switchTab(btn, tabId) {
+        var container = btn.closest('.tabs-container');
+        if (!container) return;
+        var btns = container.querySelectorAll('.tab-btn');
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].classList.remove('active');
+        }
+        btn.classList.add('active');
+        var contents = container.querySelectorAll('.tab-content');
+        for (var j = 0; j < contents.length; j++) {
+            contents[j].classList.remove('active');
+        }
+        var target = document.getElementById(tabId);
+        if (target) {
+            target.classList.add('active');
+        }
+    }
+</script>
+</body>
+</html>

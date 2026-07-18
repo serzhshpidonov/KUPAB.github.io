@@ -1,0 +1,785 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/html11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>Карманный справочник — Интерактивные вопросы</title>
+ <meta http-equiv="Content-type" content="text/html"; charset="utf-8"/>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link href="https://proofoil.ru/css/styles.css" rel="stylesheet" type="text/css"/>
+ <link href="https://proofoil.ru/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+ <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+ <style>
+  /* ===== ИНТЕРАКТИВНЫЕ ВОПРОСЫ ===== */
+  .faq-section {
+   margin: 20px auto;
+   max-width: 95%;
+   font-family: Arial, Helvetica, sans-serif;
+  }
+  .faq-item {
+   border: 1px solid #ccc;
+   border-radius: 8px;
+   margin-bottom: 8px;
+   overflow: hidden;
+   background: #fafafa;
+   box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .faq-question {
+   display: block;
+   padding: 14px 18px;
+   font-size: 4.2vw;
+   font-weight: bold;
+   color: #1a3a6b;
+   cursor: pointer;
+   background: linear-gradient(135deg, #e8f0fe, #f5f9ff);
+   border-left: 5px solid #1a3a6b;
+   transition: all 0.25s ease;
+   position: relative;
+   user-select: none;
+  }
+  <span style="color: hsl(var(--primary)); font-weight: 500;">@media</span> (min-width: 768px) {
+   .faq-question { font-size: 1.1rem; }
+  }
+  .faq-question:hover {
+   background: linear-gradient(135deg, #d4e3fc, #e8f0fe);
+   border-left-color: #c0392b;
+  }
+  .faq-question::after {
+   content: "+";
+   position: absolute;
+   right: 18px;
+   top: 50%;
+   transform: translateY(-50%);
+   font-size: 1.6em;
+   font-weight: bold;
+   color: #1a3a6b;
+   transition: transform 0.3s ease;
+  }
+  .faq-question.active::after {
+   content: "−";
+   transform: translateY(-50%) rotate(0deg);
+  }
+  .faq-answer {
+   display: none;
+   padding: 16px 20px;
+   background: #ffffff;
+   border-top: 1px solid #ddd;
+   font-size: 3.8vw;
+   line-height: 1.5;
+   color: #222;
+   max-height: 0;
+   overflow: hidden;
+   transition: max-height 0.4s ease, padding 0.3s ease;
+  }
+  <span style="color: hsl(var(--primary)); font-weight: 500;">@media</span> (min-width: 768px) {
+   .faq-answer { font-size: 0.95rem; }
+  }
+  .faq-answer.open {
+   display: block;
+   max-height: 8000px;
+   padding: 16px 20px;
+  }
+  .faq-answer table {
+   width: 100%;
+   border-collapse: collapse;
+   margin: 8px 0;
+   font-size: 3.6vw;
+  }
+  <span style="color: hsl(var(--primary)); font-weight: 500;">@media</span> (min-width: 768px) {
+   .faq-answer table { font-size: 0.85rem; }
+  }
+  .faq-answer table th {
+   background: #1a3a6b;
+   color: #fff;
+   padding: 6px 8px;
+   border: 1px solid #aaa;
+   text-align: center;
+  }
+  .faq-answer table td {
+   padding: 5px 8px;
+   border: 1px solid #ccc;
+   vertical-align: top;
+  }
+  .faq-answer table tr:nth-child(even) {
+   background: #f7f9fc;
+  }
+  .faq-answer ul, .faq-answer ol {
+   padding-left: 22px;
+   margin: 6px 0;
+  }
+  .faq-answer li {
+   margin-bottom: 3px;
+  }
+  .faq-answer strong {
+   color: #1a3a6b;
+  }
+  /* Адаптация старой вёрстки */
+  .buttion1, .buttion2 {
+   padding: 8px 6px;
+   font-size: 3.8vw;
+  }
+  <span style="color: hsl(var(--primary)); font-weight: 500;">@media</span> (min-width: 768px) {
+   .buttion1, .buttion2 { font-size: 0.9rem; }
+  }
+  .buttion1 { background: #eef3fa; }
+  .buttion2 { background: #fafafa; }
+  .gradient { background: #e0e7ef; width: 4px; }
+  .center { text-align: center; }
+  a { color: #1a3a6b; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+ </style>
+</head>
+<body text="black" bgcolor="ffffff">
+<table width="100%" cellspacing="0" cellpadding="0">
+ <div id="top"></div>
+ <div id="header">
+  <tr height="30" align="center">
+   <td width="1%" bgcolor="fafafa"><div class="wrapper-dropdown-7"></div></td>
+   <td colspan="3"><div class="wrapper-dropdown-3" tabindex="1"><h1 style="font-size: 10vw"><a target="_self" href="https://proofoil.ru/Mobile/KUPAB/KUPAB2/KUPAB02011.html" title="А-101/1(2)">А-101/1(2)</a></h1></div></td>
+   <td width="1%" bgcolor="fafafa"><div class="wrapper-dropdown-7"></div></td>
+  </tr>
+ </div>
+ <tr>
+ <div id="content">
+    <td class="gradient" width="1%" valign="top"></td>
+    <td colspan="3">
+    <table width="100%" class="center" style="font-size: 4vw">
+     <tr align="center">
+      <td class="buttion2" rowspan="1" colspan="1"><strong>Наименование</strong></td>
+      <td class="buttion1" rowspan="1" colspan="1"><dfn>Адсорбер удаления сернистых соединений</dfn></td>
+     </tr>
+     <tr align="center">
+      <td class="buttion1" rowspan="1" colspan="1"><strong>Заводской номер</strong></td>
+      <td class="buttion2" rowspan="1" colspan="1"><dfn>213(214)</dfn></td>
+     </tr>
+     <tr align="center">
+      <td class="buttion2" rowspan="1" colspan="1"><strong>Регистрационный номер</strong></td>
+      <td class="buttion1" rowspan="1" colspan="1"><dfn>НЕТ</dfn></td>
+     </tr>
+     <tr align="center">
+      <td class="buttion1" rowspan="1" colspan="1"><strong>Рабочая среда</strong></td>
+      <td class="buttion2" rowspan="1" colspan="1"><dfn>Стабильный гидрогенизат (бензиновая фракция)</dfn></td>
+     </tr>
+     <tr align="center">
+      <td class="buttion2" rowspan="1" colspan="1"><strong>Расчетное давление, МПа</strong></td>
+      <td class="buttion1" rowspan="1" colspan="1"><dfn>2,6</dfn></td>
+     </tr>
+     <tr align="center">
+      <td class="buttion1" rowspan="1" colspan="1"><strong>Расчетная температура, <sup>o</sup>C</strong></td>
+      <td class="buttion2" rowspan="1" colspan="1"><dfn>210</dfn></td>
+     </tr>
+     <tr align="center">
+      <td class="buttion2" rowspan="1" colspan="1"><strong>Рабочее давление, МПа</strong></td>
+      <td class="buttion1" rowspan="1" colspan="1"><dfn>1,827</dfn></td>
+     </tr>
+     <tr align="center">
+      <td class="buttion1" rowspan="1" colspan="1"><strong>Рабочая температура, <sup>o</sup>C</strong></td>
+      <td class="buttion2" rowspan="1" colspan="1"><dfn>177</dfn></td>
+     </tr>
+     <tr align="center">
+      <td class="buttion2" rowspan="1" colspan="1"><strong>Объём, м<sup>3</sup></strong></td>
+      <td class="buttion1" rowspan="1" colspan="1"><dfn>20,6</dfn></td>
+     </tr>
+     <tr align="center">
+      <td class="buttion1" rowspan="1" colspan="1"><strong>Материал</strong></td>
+      <td class="buttion2" rowspan="1" colspan="1"><dfn>09Г2С-8</dfn></td>
+     </tr>
+     <tr align="center">
+      <td class="buttion2" rowspan="1" colspan="1"><strong>Год ввода в эксплуатацию</strong></td>
+      <td class="buttion1" rowspan="1" colspan="1"><dfn>2026</dfn></td>
+     </tr>
+     <tr align="center">
+      <td class="buttion1" rowspan="1" colspan="1"><strong>Изготовитель</strong></td>
+      <td class="buttion2" rowspan="1" colspan="1"><dfn>ТО АО «Димитровградхиммаш»</dfn></td>
+     </tr>
+     <tr align="center">
+      <td class="buttion2" rowspan="1" colspan="1"><strong>Периодичность ВО, НО предприятием</strong></td>
+      <td class="buttion1" rowspan="1" colspan="1"><dfn>1 раз в 4 года</dfn></td>
+     </tr>
+     <tr align="center">
+      <td class="buttion1" rowspan="1" colspan="1"><strong>Периодичность ВО, НО специалистом</strong></td>
+      <td class="buttion2" rowspan="1" colspan="1"><dfn>1 раз в 4 года</dfn></td>
+     </tr>
+     <tr align="center">
+      <td class="buttion2" rowspan="1" colspan="1"><strong>Периодичность ГИ</strong></td>
+      <td class="buttion1" rowspan="1" colspan="1"><dfn>1 раз в 8 года</dfn></td>
+     </tr>
+     <tr align="center">
+      <td class="buttion1" rowspan="1" colspan="1"><strong>D <sub>в</sub>, мм</strong></td>
+      <td class="buttion2" rowspan="1" colspan="1"><dfn>2000</dfn></td>
+     </tr>
+     <tr align="center">
+      <td class="buttion2" rowspan="1" colspan="1"><strong>H <sub>ц.ч.</sub>, мм</strong></td>
+      <td class="buttion1" rowspan="1" colspan="1"><dfn>5900</dfn></td>
+     </tr>
+     <tr align="center">
+      <td class="buttion1" rowspan="1" colspan="1"><strong>Адсорбент</strong></td>
+      <td class="buttion2" rowspan="1" colspan="1"><dfn>HHR-18</dfn></td>
+     </tr>
+     <tr align="center">
+      <td class="buttion2" rowspan="1" colspan="1"><strong>Насыпная плотность адсорбента, кг/м<sup>3</sup></strong></td>
+      <td class="buttion1" rowspan="1" colspan="1"><dfn>753</dfn></td>
+     </tr>
+     <tr align="center">
+      <td class="buttion1" rowspan="1" colspan="1"><strong>Объем адсорбента, м<sup>3</sup></strong></td>
+      <td class="buttion2" rowspan="1" colspan="1"><dfn>13,5</dfn></td>
+     </tr>
+     <tr align="center">
+      <td class="buttion2" rowspan="1" colspan="1"><strong>Керамические шары</strong></td>
+      <td class="buttion1" rowspan="1" colspan="1"><dfn>19, 6, 3 мм</dfn></td>
+     </tr>
+     <tr align="center">
+      <td class="buttion1" rowspan="1" colspan="1"><strong>Объем шаров, м<sup>3</sup></strong></td>
+      <td class="buttion2" rowspan="1" colspan="1"><dfn>НЕТ</dfn></td>
+     </tr>
+     <tr align="center">
+      <td class="buttion2" rowspan="1" colspan="1"><strong>Способ загрузки</strong></td>
+      <td class="buttion1" rowspan="1" colspan="1"><dfn>Рукавная</dfn></td>
+     </tr>
+     <tr align="center">
+      <td class="buttion1" rowspan="1" colspan="1"><strong>Защита от коррозии</strong></td>
+      <td class="buttion2" rowspan="1" colspan="1"><dfn>Прибавка 3 мм<br>Термообработка<br>Покраска снаружи</dfn></td>
+     </tr>
+    </table>
+    </td>
+    <td class="gradient" width="1%" valign="top"></td>
+ </div>
+ </tr>
+
+ <!-- ========== ИНТЕРАКТИВНЫЙ РАЗДЕЛ ВОПРОСОВ ========== -->
+ <tr>
+  <td colspan="5">
+   <div class="faq-section">
+    <h2 style="font-size:6vw; text-align:center; color:#1a3a6b; margin:15px 0;">📘 Интерактивный справочник — вопросы и ответы</h2>
+    <p style="font-size:4vw; text-align:center; color:#555; margin-top:-5px;">Нажмите на вопрос, чтобы увидеть ответ</p>
+
+    <!-- ВОПРОС 1 -->
+    <div class="faq-item">
+     <div class="faq-question">1. Колонна К-201: конструкция, схема, нормы, сигнализации и блокировки</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>Параметр</th><th>Норма / Описание</th><th>Сигнализация</th><th>Блокировка</th></tr>
+       <tr><td>Давление верха</td><td>≤ 0,289 МПа</td><td>При 0,289 / 0,897 МПа</td><td>При 0,931 МПа — закрытие пара в ребойлер</td></tr>
+       <tr><td>Температура верха</td><td>65–75 °C</td><td>При выходе за диапазон</td><td>—</td></tr>
+       <tr><td>Перепад давления</td><td>≤ 130 кПа</td><td>При 130 кПа</td><td>—</td></tr>
+       <tr><td>Уровень куба</td><td>8–38 %</td><td>При 8 % и 38 %</td><td>При 4 % — отключение насоса Н-202</td></tr>
+       <tr><td>Температура куба</td><td>90–110 °C</td><td>При выходе за диапазон</td><td>—</td></tr>
+       <tr><td>Расход орошения</td><td>120–155 м³/ч</td><td>При выходе за диапазон</td><td>—</td></tr>
+       <tr><td>Расход кубового продукта</td><td>≥ 23,25 м³/ч (рег.)</td><td>При снижении</td><td>—</td></tr>
+      </table>
+      <p><strong>Назначение:</strong> Чёткое разделение фракций, чистота изопентановой фракции, степень извлечения изопентана.</p>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 2 -->
+    <div class="faq-item">
+     <div class="faq-question">2. Порядок пуска контура К-201: приём сырья, холодная/горячая циркуляция</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>Этап</th><th>Действия</th><th>Ключевые параметры</th></tr>
+       <tr><td>1. Приём сырья</td><td>Подача нафты из Н-105/1(2) в Е-201. Контроль уровня (20–80%), давления, отбор проб</td><td>Уровень Е-201: 20–80% (сигнал 19/81%, блокировка 8%)</td></tr>
+       <tr><td>2. Холодная циркуляция</td><td>Циркуляция: Е-201 → Н-201/1(2) → Т-201 → К-201 → Н-202/1(2) → Т-201 → ХВ-201 → А-202/1,2 → Е-203</td><td>Расход ≥ 39 м³/ч; влажность сырья ≤ 1,0 ppm</td></tr>
+       <tr><td>3. Горячая циркуляция</td><td>Подача сырья на 49-ю тарелку. Запуск ребойлера Т-202 (пар НД). Контроль температуры куба</td><td>Температура куба 90–110 °C; давление верха ≤ 0,289 МПа</td></tr>
+       <tr><td>4. Нормальный режим</td><td>Стабилизация: верх 65–75 °C, куб 90–110 °C, орошение 120–155 м³/ч. Включение АСУ ТП</td><td>Все сигнализации и блокировки активны</td></tr>
+      </table>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 3 -->
+    <div class="faq-item">
+     <div class="faq-question">3. Краткосрочная/долговременная остановка К-201. Перевод в горячую/холодную циркуляцию</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>Режим</th><th>Краткосрочная (горячая)</th><th>Долговременная (холодная)</th></tr>
+       <tr><td>Назначение</td><td>Временная остановка с сохранением прогрева</td><td>Полная остановка, подготовка к ремонту</td></tr>
+       <tr><td>Действия</td><td>Снизить расход сырья, поддерживать пар в Т-202, орошение, давление</td><td>Прекратить сырьё, снижать температуру 20–30 °C/ч, остановить насосы, дренировать</td></tr>
+       <tr><td>Состояние</td><td>Оборудование прогрето, катализатор под ВСГ/азотом</td><td>Охлаждено, сброшено давление, подготовлено к ремонту</td></tr>
+      </table>
+      <p><strong>Перевод в горячую циркуляцию:</strong> пуск сырья по байпасу, включение насосов, подача пара в Т-202, нагрев куба до 90–110 °C, ввод орошения.</p>
+      <p><strong>Перевод в холодную циркуляцию:</strong> прекращение пара в Т-202, снижение температуры, остановка насосов, охлаждение, дренирование.</p>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 4 -->
+    <div class="faq-item">
+     <div class="faq-question">4. Узел осушки ВСГ А-201/1,2: схема, нормы, сигнализации</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>Параметр</th><th>Описание</th></tr>
+       <tr><td>Схема</td><td>Осушители включены последовательно. ВСГ поступает снизу, проходит адсорбент, выходит сверху. Переключение — автоматическое (DRCS).</td></tr>
+       <tr><td>Регенерация</td><td>Десорбция парами легкого изомеризата. Стадии: сброс давления → заполнение агентом → нагрев (ЭН-201, ≤ 325 °C) → выдержка 4 ч → охлаждение → заполнение ВСГ.</td></tr>
+       <tr><td>Нормы</td><td>Влажность после головного ≤ 0,1 ppm; время работы до регенерации ≤ 24 ч; скорость нагрева ≤ 69 °C/ч.</td></tr>
+       <tr><td>Сигнализации</td><td>Влажность > 0,1 ppm; давление приёма ПК-201 < 2,002 или > 2,226 МПа; температура нагнетания > 131 °C; уровень в С-202 > 80%.</td></tr>
+       <tr><td>Блокировки</td><td>Влажность > 0,1 ppm → автоперевод на регенерацию; перепад на фильтре > 130 кПа → отключение ПК-201; температура нагнетания > 141 °C → отключение компрессора.</td></tr>
+      </table>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 5 -->
+    <div class="faq-item">
+     <div class="faq-question">5. Осушители А-201/1,2: конструкция, диаграмма загрузки, назначение слоёв</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>Слой</th><th>Материал</th><th>Назначение</th></tr>
+       <tr><td>1. Фильтрующий (опционально)</td><td>Металлические/полимерные сетки</td><td>Улавливание механических примесей, защита адсорбента</td></tr>
+       <tr><td>2. Основной слой адсорбента</td><td>Молекулярные сита (цеолиты)</td><td>Селективное поглощение воды и полярных примесей (до ≤ 0,1 ppm)</td></tr>
+       <tr><td>3. Инертная насадка (опционально)</td><td>Керамические шары</td><td>Равномерное распределение потока, предотвращение уноса адсорбента</td></tr>
+      </table>
+      <p><strong>Конструкция:</strong> Вертикальные цилиндрические аппараты, работающие последовательно. Поток — снизу вверх. Обвязка позволяет переключать аппараты для регенерации.</p>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 6 -->
+    <div class="faq-item">
+     <div class="faq-question">6. Процедура регенерации осушителей А-201/1,2. Алгоритм СУРО</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>Стадия</th><th>Операция</th><th>Назначение</th></tr>
+       <tr><td>1. Подготовка</td><td>Перевод в режим регенерации через DRCS</td><td>Инициация цикла</td></tr>
+       <tr><td>2. Сброс давления</td><td>Сброс на факел через клапаны-отсекатели</td><td>Удаление остаточного ВСГ</td></tr>
+       <tr><td>3. Заполнение</td><td>Заполнение жидким агентом (снизу вверх)</td><td>Вытеснение влаги</td></tr>
+       <tr><td>4. Смена направления</td><td>Поток сверху вниз</td><td>Организация циркуляции</td></tr>
+       <tr><td>5. Нагрев</td><td>Включение ЭН-201, подача перегретых паров (≤ 325 °C, ≤ 69 °C/ч)</td><td>Десорбция влаги</td></tr>
+       <tr><td>6. Выдержка</td><td>4 часа при высокой температуре</td><td>Глубокая регенерация</td></tr>
+       <tr><td>7. Охлаждение</td><td>Снижение температуры, отключение ЭН-201</td><td>Подготовка к заполнению ВСГ</td></tr>
+       <tr><td>8. Заполнение ВСГ</td><td>Подача осушенного ВСГ</td><td>Ввод в схему как ведомого</td></tr>
+      </table>
+      <p><strong>СУРО:</strong> Запуск по анализу (>0,1 ppm) или по таймеру (≤24 ч). Все стадии автоматические с контролем герметичности и параметров.</p>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 7 -->
+    <div class="faq-item">
+     <div class="faq-question">7. Узел осушки сырья А-202/1,2: схема, нормы, сигнализации</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>Параметр</th><th>Описание</th></tr>
+       <tr><td>Схема</td><td>Последовательное включение. Сырьё (деизопентанизированная фракция) — снизу вверх через адсорбент. Переключение автоматическое (DRCS).</td></tr>
+       <tr><td>Регенерация</td><td>Аналогично А-201: сброс давления → заполнение агентом → нагрев (ЭН-201, ≤ 325 °C) → выдержка 4 ч → охлаждение → заполнение сырьём.</td></tr>
+       <tr><td>Нормы</td><td>Влажность после головного ≤ 1,0 ppm; время до регенерации ≤ 24 ч; скорость нагрева ≤ 69 °C/ч.</td></tr>
+       <tr><td>Сигнализации</td><td>Влажность > 1,0 ppm; перепад на фильтрах ФС-204 > 10 кПа; давление приёма Н-204 < 1,02 МПа; температура подшипников > 90 °C.</td></tr>
+       <tr><td>Блокировки</td><td>Влажность > 1,0 ppm → автоперевод на регенерацию; температура подшипников > 95 °C → отключение насоса; уровень Е-203 < 9% → отключение Н-204.</td></tr>
+      </table>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 8 -->
+    <div class="faq-item">
+     <div class="faq-question">8. Осушители А-202/1,2: конструкция, загрузка, назначение слоёв</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>Слой</th><th>Материал</th><th>Назначение</th></tr>
+       <tr><td>1. Фильтрующий</td><td>Сетки/керамика</td><td>Защита от мехпримесей</td></tr>
+       <tr><td>2. Основной адсорбент</td><td>Молекулярные сита (цеолиты)</td><td>Осушка до ≤ 1,0 ppm влаги</td></tr>
+       <tr><td>3. Инертная насадка</td><td>Керамические шары</td><td>Распределение потока, защита от уноса</td></tr>
+      </table>
+      <p><strong>Конструкция:</strong> Вертикальные цилиндрические аппараты. Поток сырья — снизу вверх. Обвязка с клапанами-отсекателями (поз. 320-UV-5134 ÷ 5170). ППК на 2,63 МПа.</p>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 9 -->
+    <div class="faq-item">
+     <div class="faq-question">9. Процедура регенерации осушителей А-202/1,2. Алгоритм СУРО</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>Стадия</th><th>Операция</th></tr>
+       <tr><td>1. Перевод в регенерацию</td><td>Через DRCS</td></tr>
+       <tr><td>2. Циркуляция</td><td>Жидкий агент сверху вниз</td></tr>
+       <tr><td>3. Нагрев и вытеснение</td><td>Пар СД в Т-203, вытеснение горячими парами в ХВ-208, Х-206</td></tr>
+       <tr><td>4. Подача перегретого пара</td><td>ЭН-201, ≤ 325 °C, ≤ 69 °C/ч</td></tr>
+       <tr><td>5. Выдержка</td><td>4 часа</td></tr>
+       <tr><td>6. Охлаждение</td><td>Отключение ЭН-201, смена потока (снизу вверх) до < 65 °C</td></tr>
+       <tr><td>7. Заполнение сырьём</td><td>Подача осушенного сырья, ввод как ведомого</td></tr>
+      </table>
+      <p><strong>СУРО:</strong> Запуск по анализу (>1,0 ppm) или по таймеру (≤24 ч). Полная автоматизация с контролем герметичности.</p>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 10 -->
+    <div class="faq-item">
+     <div class="faq-question">10. Реакторный блок изомеризации: схема, нормы, сигнализации и блокировки</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>Параметр</th><th>Норма / Описание</th></tr>
+       <tr><td>Схема</td><td>Газосырьевая смесь → Р-201 → Т-206/1-3 → Р-202 → Т-205 → Р-203 → Т-204 → блок стабилизации</td></tr>
+       <tr><td>Давление на входе в Р-201</td><td>3,5–4,2 МПа</td></tr>
+       <tr><td>Температура на входе</td><td>110–165 °C (все реакторы)</td></tr>
+       <tr><td>Температура на выходе</td><td>≤ 124 °C (сигн.), ≤ 211 °C (сигн.), ≤ 221 °C (блокировка)</td></tr>
+       <tr><td>Перепад по слою</td><td>≥ 20 кПа (сигнализация при снижении)</td></tr>
+       <tr><td>H₂:УВ</td><td>≥ 0,05:1 (сигнал при < 0,04)</td></tr>
+       <tr><td>Расход сырья</td><td>≥ 36,8 м³/ч (сигн.), номинал 81 м³/ч</td></tr>
+       <tr><td>Расход ВСГ</td><td>1500–2750 нм³/ч</td></tr>
+      </table>
+      <p><strong>Блокировки:</strong> Температура ≥ 221 °C → закрытие 320-UZ-7019; расход сырья < 31,5 м³/ч → закрытие ототсечных клапанов; расход ВСГ < 720 нм³/ч → закрытие 320-UZV-7019; температура подшипников ≥ 95 °C → отключение насоса.</p>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 11 -->
+    <div class="faq-item">
+     <div class="faq-question">11. Реакторы Р-201, Р-202, Р-203: конструкция, загрузка, назначение слоёв</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>Слой (сверху вниз)</th><th>Материал</th><th>Высота, мм</th><th>Объём, м³</th><th>Масса, кг</th><th>Назначение</th></tr>
+       <tr><td>1</td><td>Керамические шары Ø19 мм</td><td>100</td><td>0,2</td><td>281</td><td>Распределение потока, защита</td></tr>
+       <tr><td>2</td><td>Керамические шары Ø6 мм</td><td>100</td><td>0,2</td><td>281</td><td>Доп. распределение, поддержка</td></tr>
+       <tr><td>3</td><td>Катализатор СИ-2Б</td><td>6765</td><td>13,6</td><td>19 040</td><td>Основной рабочий слой (изомеризация)</td></tr>
+       <tr><td>4</td><td>Керамические шары Ø6 мм</td><td>200</td><td>0,4</td><td>563</td><td>Защита от мехпримесей</td></tr>
+       <tr><td>5</td><td>Керамические шары Ø19 мм</td><td>490</td><td>1,8</td><td>2500</td><td>Финишная фильтрация</td></tr>
+      </table>
+      <p><strong>Конструкция:</strong> Вертикальные цилиндрические аппараты, работающие под высоким давлением (3,5–4,2 МПа). Катализатор СИ-2Б — платина на оксидно-циркониевой основе.</p>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 12 -->
+    <div class="faq-item">
+     <div class="faq-question">12. Реакции на катализаторе изомеризации. Влияние параметров</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>Тип реакции</th><th>Влияние</th></tr>
+       <tr><td>Изомеризация парафинов</td><td>Основной процесс, повышение ИОЧ</td></tr>
+       <tr><td>Изомеризация нафтенов</td><td>Увеличивает содержание парафинов</td></tr>
+       <tr><td>Гидрирование нафтенов</td><td>Снижает нафтены, расходует H₂, выделяет тепло</td></tr>
+       <tr><td>Гидрирование бензола</td><td>Сильно экзотермична, снижает выход изомеров</td></tr>
+       <tr><td>Гидрокрекинг</td><td>Побочная, снижает выход, увеличивает газообразование</td></tr>
+      </table>
+      <p><strong>Влияние параметров:</strong> Температура 110–165 °C (оптимум). Повышение T → снижение ИОЧ, рост гидрокрекинга. Давление 3,5–4,2 МПа. Выше давление → меньше глубина, но выше селективность. Состав сырья: C₇⁺ и бензол → разогрев и снижение ИОЧ. H₂:УВ < 0,04 → блокировка.</p>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 13 -->
+    <div class="faq-item">
+     <div class="faq-question">13. Каталитические яды. Дезактивация и восстановление активности</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>Группа ядов</th><th>Примеры</th><th>Механизм</th></tr>
+       <tr><td>Сера</td><td>H₂S, меркаптаны</td><td>Связывание с Pt, необратимая дезактивация</td></tr>
+       <tr><td>Азот</td><td>Амины, пиридины</td><td>Адсорбция на активных центрах</td></tr>
+       <tr><td>Кислородсодержащие</td><td>H₂O, CO, CO₂</td><td>Обратимая блокировка</td></tr>
+       <tr><td>Тяжёлые металлы</td><td>Pb, As, Cu, Fe</td><td>Необратимая дезактивация</td></tr>
+      </table>
+      <p><strong>Обратимая:</strong> продувка азотом/водородом, повышение температуры. <strong>Необратимая:</strong> замена катализатора. Профилактика: глубокая гидроочистка сырья, контроль примесей.</p>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 14 -->
+    <div class="faq-item">
+     <div class="faq-question">14. Сушка оборудования и первичный пуск реакторов изомеризации</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>Этап</th><th>Действие</th><th>Контроль</th></tr>
+       <tr><td>Сушка</td><td>Продувка азотом, циркуляция сырья через осушители</td><td>Влажность < 10 ppm</td></tr>
+       <tr><td>Подача ВСГ</td><td>Заполнение водородом, повышение давления</td><td>Давление ≥ 3,15 МПа</td></tr>
+       <tr><td>Подача сырья</td><td>Ввод осушенного сырья в реакторы</td><td>Расход 49,3–81,6 м³/ч</td></tr>
+       <tr><td>Прогрев</td><td>Подъём T до 180 °C (≤ 10 °C/ч)</td><td>Температура, влажность</td></tr>
+       <tr><td>Активация</td><td>Удаление остаточной влаги</td><td>Влажность < 1 ppm об.</td></tr>
+      </table>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 15 -->
+    <div class="faq-item">
+     <div class="faq-question">15. Подготовка к выгрузке катализатора и внутренняя ревизия</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>№</th><th>Этап</th><th>Ключевые действия</th></tr>
+       <tr><td>1</td><td>Остановка</td><td>Снижение T до 80 °C, остановка сырья, ВСГ, пара</td></tr>
+       <tr><td>2</td><td>Инертизация</td><td>Продувка азотом, сброс давления до 0,05–0,10 МПа</td></tr>
+       <tr><td>3</td><td>Дренирование</td><td>Остановка и дренирование колонн К-201, К-202, К-203</td></tr>
+       <tr><td>4</td><td>Подготовка к вскрытию</td><td>Отглушка, анализ атмосферы, наряд-допуск</td></tr>
+       <tr><td>5</td><td>Внутренняя ревизия</td><td>Осмотр, инструментальный контроль через люки</td></tr>
+       <tr><td>6</td><td>Восстановление</td><td>Сборка, опрессовка, повторная инертизация</td></tr>
+      </table>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 16 -->
+    <div class="faq-item">
+     <div class="faq-question">16. Пуск реакторного блока после краткосрочной/долговременной остановки</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>Параметр</th><th>Значение</th></tr>
+       <tr><td>Давление в блоке</td><td>3,5–4,2 МПа</td></tr>
+       <tr><td>T на входе Р-201</td><td>120–160 °C; Р-202/Р-203: 120–165 °C</td></tr>
+       <tr><td>Расход сырья</td><td>81–81,6 м³/ч</td></tr>
+       <tr><td>Расход ВСГ</td><td>1500–2750 нм³/ч</td></tr>
+       <tr><td>H₂:сырьё</td><td>≥ 0,05:1</td></tr>
+       <tr><td>Влажность</td><td>≤ 1,0 ppm</td></tr>
+      </table>
+      <p><strong>После краткосрочной:</strong> восстановление давления, подача сырья до 80%, подъём T ≤ 5 °C/ч.</p>
+      <p><strong>После долговременной:</strong> осушка (циркуляция сырья, влажность куба < 10 ppm), инертизация (горючие < 0,05%), затем пуск.</p>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 17 -->
+    <div class="faq-item">
+     <div class="faq-question">17. Краткосрочная/долговременная остановка реакторного блока</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>Этап</th><th>Краткосрочная</th><th>Долговременная</th></tr>
+       <tr><td>Температура</td><td>Снижается до 80 °C</td><td>Снижается до 50 °C</td></tr>
+       <tr><td>Подача сырья</td><td>Прекращается</td><td>Прекращается</td></tr>
+       <tr><td>Циркуляция ВСГ</td><td>Продолжается до охлаждения</td><td>Продолжается до охлаждения</td></tr>
+       <tr><td>Давление</td><td>Сбрасывается до 0,05–0,1 МПа</td><td>Сбрасывается до 0,05–0,1 МПа</td></tr>
+       <tr><td>Продувка азотом</td><td>Не требуется</td><td>Обязательна до горючих < 0,05%</td></tr>
+      </table>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 18 -->
+    <div class="faq-item">
+     <div class="faq-question">18. Колонна К-202: конструкция, схема, нормы, сигнализации</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>Параметр</th><th>Норма</th><th>Влияние</th></tr>
+       <tr><td>Давление верха</td><td>1,20–1,65 МПа</td><td>Определяет летучесть, нагрузку на компрессор</td></tr>
+       <tr><td>Температура верха</td><td>85–105 °C</td><td>Содержание C₁–C₃ в изомеризате</td></tr>
+       <tr><td>Температура куба</td><td>150–185 °C</td><td>Отбор фракций, цветность</td></tr>
+       <tr><td>Уровень куба</td><td>18–78 %</td><td>Стабильность насоса Н-204</td></tr>
+      </table>
+      <p><strong>Сигнализации:</strong> давление > 1,65 МПа; перепад > 32 кПа; уровень < 18% / > 78%; расход орошения < 11,8 м³/ч.</p>
+      <p><strong>Блокировки:</strong> ППК при 2,05/2,1 МПа; клапан 320-PV-2040 на факел; остановка Н-205 при уровне ниже критического.</p>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 19 -->
+    <div class="faq-item">
+     <div class="faq-question">19. Порядок пуска контура К-202: приём сырья, циркуляция, нормальный режим</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>Этап</th><th>Действия</th></tr>
+       <tr><td>1. Приём сырья</td><td>Сырьё из Е-203 → Н-204/1(2) → байпас → К-202. Заполнение, дренаж, запуск насоса (≥ 71,3 м³/ч). Подача пара СД в Т-209, нагрев куба до 150–185 °C (≤ 25 °C/ч).</td></tr>
+       <tr><td>2. Холодная циркуляция</td><td>Циркуляция куба через ребойлер: К-202 → Н-202/1(2) → линия мин. расхода → К-202 (≥ 28,3 м³/ч). Удаление влаги.</td></tr>
+       <tr><td>3. Горячая циркуляция</td><td>Нагрев куба до 150–185 °C. Запуск Н-205/1(2), орошение ≥ 11,8 м³/ч. Уровень в Е-204 40–60%.</td></tr>
+       <tr><td>4. Нормальный режим</td><td>Стабилизация давления, T верха 85–105 °C. Вывод кубового продукта в К-203 через 320UZV-7540.</td></tr>
+      </table>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 20 -->
+    <div class="faq-item">
+     <div class="faq-question">20. Краткосрочная/долговременная остановка К-202. Перевод в циркуляцию</div>
+     <div class="faq-answer">
+      <p><strong>Краткосрочная:</strong> прикрыть 320FV-3025, снизить T куба до ~150 °C, снизить расход сырья до ~36,8 м³/ч. Система под давлением.</p>
+      <p><strong>Долговременная:</strong> прекратить пар в Т-209, сбросить давление, продувка азотом (горючие < 0,05%), дренирование, азот 0,05 МПа.</p>
+      <p><strong>Холодная циркуляция:</strong> без нагрева, промывка. <strong>Горячая циркуляция:</strong> с нагревом куба до 150–185 °C, возврат флегмы в колонну.</p>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 21 -->
+    <div class="faq-item">
+     <div class="faq-question">21. Колонна К-203 (ДИГ): конструкция, схема, нормы, сигнализации</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>Параметр</th><th>Норма</th><th>Влияние</th></tr>
+       <tr><td>Давление верха</td><td>≤ 0,237 МПа</td><td>Чёткость разделения</td></tr>
+       <tr><td>Температура верха</td><td>63–68 °C</td><td>Содержание компонентов в дистилляте</td></tr>
+       <tr><td>Температура куба</td><td>130–138 °C</td><td>Испарение тяжёлого остатка</td></tr>
+       <tr><td>Уровень куба</td><td>5–26 %</td><td>Работа насоса Н-209</td></tr>
+      </table>
+      <p><strong>Продукты:</strong> верх (пентан-изопентан), верхний боковой (легкий изомеризат), нижний боковой (метилпентаны), куб (тяжёлый изомеризат).</p>
+      <p><strong>Сигнализации:</strong> давление > 0,237 МПа; перепад > 122 кПа; уровень < 5% / > 26%; расход орошения < 150 м³/ч.</p>
+      <p><strong>Блокировки:</strong> ППК при > 1,2 МПа; при > 1,131 МПа — закрытие пара на Т-210 (320-UZV-7023); остановка насосов при перегреве.</p>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 22 -->
+    <div class="faq-item">
+     <div class="faq-question">22. Порядок пуска контура К-203: приём сырья, циркуляция, нормальный режим</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>Этап</th><th>Действия</th></tr>
+       <tr><td>1. Приём сырья</td><td>Открыть 320-UZV-7540, заполнить колонну из К-202. Запуск Н-209/1(2), циркуляция ≥ 4,7 м³/ч.</td></tr>
+       <tr><td>2. Холодная циркуляция</td><td>Циркуляция куба без нагрева, дренаж влаги.</td></tr>
+       <tr><td>3. Горячая циркуляция</td><td>Пар СД в Т-210, нагрев куба до 130–138 °C (≤ 25 °C/ч). Запуск Н-206/1(2), орошение 150–250 м³/ч.</td></tr>
+       <tr><td>4. Нормальный режим</td><td>Вывод верхнего бокового (320-UZV-7543), нижнего бокового (320-UZV-7545), куба (360-UZV-7542). Стабилизация T верха 63–68 °C.</td></tr>
+      </table>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 23 -->
+    <div class="faq-item">
+     <div class="faq-question">23. Краткосрочная/долговременная остановка К-203. Перевод в циркуляцию</div>
+     <div class="faq-answer">
+      <p><strong>Краткосрочная:</strong> прикрыть 320FV-3033, снизить T куба до ~130 °C, снизить расход из К-202. Система под давлением.</p>
+      <p><strong>Долговременная:</strong> прекратить пар в Т-210 (320UZV-7023), сброс давления через 320UZV-7627, продувка азотом, дренирование, азот 0,05 МПа.</p>
+      <p><strong>Холодная циркуляция:</strong> без нагрева, промывка. <strong>Горячая циркуляция:</strong> нагрев куба до 130–138 °C, возврат всех потоков в колонну (замкнутый цикл).</p>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 24 -->
+    <div class="faq-item">
+     <div class="faq-question">24. Колонна К-204 (скруббер): конструкция, схема, нормы, сигнализации</div>
+     <div class="faq-answer">
+      <p><strong>Назначение:</strong> Очистка балансового газа от остатков щелочи с водной промывкой. В связи с переходом на СИ-2Б — блок в резерве.</p>
+      <table>
+       <tr><th>Параметр</th><th>Норма</th></tr>
+       <tr><td>Уровень щелочи</td><td>25–97 %</td></tr>
+       <tr><td>Температура раствора</td><td>32–51 °C</td></tr>
+       <tr><td>Давление</td><td>≤ 1,55 МПа</td></tr>
+      </table>
+      <p><strong>Сигнализации:</strong> отклонение уровня щелочи; уровень воды < 20%; T раствора > 51 °C / < 32 °C; давление > 1,55 МПа.</p>
+      <p><strong>Блокировки:</strong> уровень щелочи < 15% → закрытие 320-LV-4025, отключение Н-210; перегрев обмоток → отключение насосов; защита от сухого хода.</p>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 25 -->
+    <div class="faq-item">
+     <div class="faq-question">25. Порядок пуска контура К-204</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>Этап</th><th>Действия</th></tr>
+       <tr><td>1. Приём газа</td><td>Открыть вход газа из С-204, клапан 320-PV-2042А (на Б-201).</td></tr>
+       <tr><td>2. Холодная циркуляция</td><td>Заполнение Е-252 щелочью, азотная подушка. Запуск Н-210/1(2), циркуляция через Т-211 (35–40 °C). Заполнение Е-205 водой, запуск Н-211/1(2).</td></tr>
+       <tr><td>3. Рабочий режим</td><td>Подача газа, стабилизация уровня щелочи (25–97%), воды (> 20%), T. Перевод в автомат.</td></tr>
+      </table>
+      <p><strong>Важно:</strong> Для К-204 нет «горячей циркуляции» — это физическая абсорбция, не ректификация.</p>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 26 -->
+    <div class="faq-item">
+     <div class="faq-question">26. Краткосрочная/долговременная остановка К-204</div>
+     <div class="faq-answer">
+      <p><strong>Краткосрочная:</strong> снизить расход газа, остановить Н-210/1(2) и Н-211/1(2), закрыть пар на Т-211 (320-UZV-7546), сбросить давление через 320-UZV-7558.</p>
+      <p><strong>Долговременная:</strong> полный сброс давления, откачка щелочи в Е-207, откачка воды, продувка азотом, герметизация (азот 0,05 МПа).</p>
+      <p><strong>Циркуляция (холодная):</strong> запуск Н-210 и Н-211, T раствора 35–45 °C, газ не пропускается — «горячий резерв» реагентов.</p>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 27 -->
+    <div class="faq-item">
+     <div class="faq-question">27. Блок очистки балансового газа Б-201: схема, оборудование, нормы</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>Оборудование</th><th>Назначение</th><th>Параметры</th></tr>
+       <tr><td>К-0901/1,2</td><td>Осушка газа</td><td>Удаление влаги</td></tr>
+       <tr><td>Ф-0901/1,2</td><td>Защита от примесей</td><td>На входе</td></tr>
+       <tr><td>Ф-0902/1,2</td><td>Защита от примесей</td><td>На выходе</td></tr>
+       <tr><td>Т-0901</td><td>Температурная подготовка</td><td>Паровой</td></tr>
+       <tr><td>ППК</td><td>Защита от превышения давления</td><td>1,55 МПа</td></tr>
+      </table>
+      <p><strong>Сигнализации:</strong> давление > 1,55 МПа; расход по 320-FQIR-3049.</p>
+      <p><strong>Блокировки:</strong> клапан-отсекатель 320-UZV-7541; срабатывание ППК.</p>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 28 -->
+    <div class="faq-item">
+     <div class="faq-question">28. Порядок пуска контура Б-201</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>Этап</th><th>Действия</th></tr>
+       <tr><td>1. Подготовка</td><td>Инертизация азотом (O₂ < 0,5%), проверка арматуры, КИП.</td></tr>
+       <tr><td>2. Подача газа</td><td>Открыть 320-PV-2042А, увеличить расход, контроль давления (320-PIRC-2042).</td></tr>
+       <tr><td>3. Нормальный режим</td><td>Автомат давления, контроль уровня в С-204 (6–23%), мониторинг сигнализаций.</td></tr>
+      </table>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 29 -->
+    <div class="faq-item">
+     <div class="faq-question">29. Краткосрочная/долговременная остановка Б-201</div>
+     <div class="faq-answer">
+      <p><strong>Краткосрочная:</strong> снизить расход газа, закрыть 320-PV-2042А, при необходимости 320-PV-2042В (топливная сеть), контроль уровня С-204.</p>
+      <p><strong>Долговременная:</strong> прекратить подачу газа, продувка азотом (O₂ < 0,5%), отключение электроэнергии, пара, воды, слив жидкостей, заглушки, консервация.</p>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 30 -->
+    <div class="faq-item">
+     <div class="faq-question">30. Адсорберы К-0901/1,2: конструкция, загрузка, материалы</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>Слой</th><th>Материал</th><th>Высота, мм</th><th>Объём, м³</th><th>Масса, кг</th><th>Назначение</th></tr>
+       <tr><td>1. Верхний защитный</td><td>Керамические шары Ø19 мм</td><td>500</td><td>—</td><td>—</td><td>Распределение потока, защита</td></tr>
+       <tr><td>2. Адсорбент</td><td>HHR-18 (цеолит)</td><td>4300</td><td>13,5</td><td>11 475</td><td>Основная осушка газа</td></tr>
+       <tr><td>3. Нижний защитный</td><td>Керамические шары Ø6 мм</td><td>150</td><td>—</td><td>—</td><td>Фиксация, предотвращение уноса</td></tr>
+      </table>
+      <p><strong>HHR-18:</strong> молекулярное сито, насыпная плотность 850 кг/м³, селективное поглощение воды.</p>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 31 -->
+    <div class="faq-item">
+     <div class="faq-question">31. Блок нейтрализации щелочи Б-250: схема, оборудование, нормы</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>Оборудование</th><th>Назначение</th><th>Параметры</th></tr>
+       <tr><td>Е-250/1,2</td><td>Приём и нейтрализация</td><td>Уровень 20–80%</td></tr>
+       <tr><td>Н-250/1(2)</td><td>Циркуляция раствора</td><td>P приёма 0,1 МПа, нагнетания 0,30–0,38 МПа</td></tr>
+       <tr><td>Е-251</td><td>Хранение HCl</td><td>Уровень 10–90%</td></tr>
+       <tr><td>Н-251</td><td>Дозирование HCl</td><td>P нагнетания ≤ 1,0 МПа</td></tr>
+      </table>
+      <p><strong>Нормы:</strong> pH 6,5–8,5; расход сброса ≤ 1,1 м³/ч.</p>
+      <p><strong>Сигнализации:</strong> уровень Е-250/1,2 < 20% / > 80%; перепад на ФС-250 > 10 кПа; T обмоток Н-251 > 90 °C.</p>
+      <p><strong>Блокировки:</strong> T обмоток Н-251 > 100 °C → отключение; P нагнетания Н-251 > 1,0 МПа → ППК-241.</p>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 32 (31П) -->
+    <div class="faq-item">
+     <div class="faq-question">32. Порядок пуска контура Б-250</div>
+     <div class="faq-answer">
+      <table>
+       <tr><th>№</th><th>Этап</th><th>Операции</th></tr>
+       <tr><td>1</td><td>Подготовка</td><td>Проверка герметичности, арматуры</td></tr>
+       <tr><td>2</td><td>Инертизация</td><td>Азот, O₂ < 0,5%</td></tr>
+       <tr><td>3</td><td>Приём сырья</td><td>Открыть клапаны, запуск Н-212/1,2, уровень 20–80%</td></tr>
+       <tr><td>4</td><td>Циркуляция</td><td>Запуск Н-250/1,2 (10–20 м³/ч)</td></tr>
+       <tr><td>5</td><td>Подача HCl</td><td>Запуск Н-251, контроль pH 6,5–8,5</td></tr>
+       <tr><td>6</td><td>Нейтрализация</td><td>Мониторинг pH (320-AIR-5007)</td></tr>
+       <tr><td>7</td><td>Нормальный режим</td><td>Автомат, контроль уровня, давления, pH</td></tr>
+       <tr><td>8</td><td>Сброс</td><td>В промканализацию ≤ 1,1 м³/ч</td></tr>
+      </table>
+     </div>
+    </div>
+
+    <!-- ВОПРОС 33 -->
+    <div class="faq-item">
+     <div class="faq-question">33. Краткосрочная/долговременная остановка Б-250</div>
+     <div class="faq-answer">
+      <p><strong>Краткосрочная:</strong> закрыть подачу щелочи, остановить Н-212, Н-250, Н-, закрыть подачу HCl, слить остаток (≤ 1,1 м³/ч), оставить под азотом ~0,1 МПа.</p>
+      <p><strong>Долговременная:</strong> полный слив растворов, промывка водой, продувка азотом, консервация (азот ~0,1 МПа), установка заглушек, оформление акта.</p>
+     </div>
+    </div>
+
+   </div><!-- /faq-section -->
+  </td>
+ </tr>
+
+ <tr>
+  <div class="clear"></div>
+  <div id="footer" class="center">
+   <table width="100%">
+    <tr height="30">
+     <td width="33%" bgcolor="fafafa" class="center"><div class="wrapper-dropdown-7" style="font-size: 5vw"><strong><a target="_self" href="https://proofoil.ru/Mobile/Mobile0.html" title="Главная страница">ГЛАВНОЕ МЕНЮ</a></strong></div></td>
+     <td bgcolor="fafafa" class="center"></td>
+     <td bgcolor="fafafa" width="34%" class="center"><div id="dd2" class="wrapper-dropdown-6"><font size="4"><a href="#top" style="font-size: 5vw"><strong>НАВЕРХ</strong></a></font></div></td>
+     <td width="33%" bgcolor="fafafa" class="center"><div class="wrapper-dropdown-7" style="font-size: 5vw"><strong><a target="_self" href="https://proofoil.ru/Mobile/KUPAB/KUPAB0.html" title="Тит.300">МЕНЮ РАЗДЕЛА</a></strong></div></td>
+    </tr>
+   </table>
+  </div>
+ </tr>
+</table>
+
+<script>
+$(document).ready(function() {
+ // Интерактивность: клик по вопросу — показать/скрыть ответ
+ $('.faq-question').on('click', function() {
+  var answer = $(this).next('.faq-answer');
+  var isOpen = answer.hasClass('open');
+  
+  // Закрыть все ответы
+  $('.faq-answer').removeClass('open').slideUp(300);
+  $('.faq-question').removeClass('active');
+  
+  // Если был закрыт — открыть
+  if (!isOpen) {
+   answer.addClass('open').slideDown(400);
+   $(this).addClass('active');
+  }
+ });
+});
+</script>
+
+</body>
+</html>
